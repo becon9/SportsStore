@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace SportsStore.Models
 {
-    public class SeedData
+    public static class SeedData
     {
         public static void EnsurePopulated(IApplicationBuilder app)
         {
