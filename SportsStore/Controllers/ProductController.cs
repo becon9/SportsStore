@@ -17,7 +17,7 @@ namespace SportsStore.Controllers
 
         public ViewResult List(string category, int productPage = 1)
         {
-            var result =_repository.Products
+            var result = _repository.Products
                     .Where(p => category == null || p.Category == category)
                     .OrderBy(p => p.ProductId)
                     .Skip((productPage - 1) * PageSize)
