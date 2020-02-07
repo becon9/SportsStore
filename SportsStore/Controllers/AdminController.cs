@@ -39,5 +39,17 @@ namespace SportsStore.Controllers
             return RedirectToAction("Index");
 
         }
+
+        [HttpPost]
+        public IActionResult Delete(int productId)
+        {
+            Product deletedProduct = _repository.DeleteProduct(productId);
+            if (deletedProduct != null)
+            {
+                TempData["message"] = $"{deletedProduct.Name} was deleted";
+            }
+
+            return RedirectToAction("Index");
+        }
     }
 }

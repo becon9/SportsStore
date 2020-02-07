@@ -89,8 +89,8 @@ namespace SportsStore.Tests
             //Arrange
             var mock = new Mock<IProductRepository>();
             var tempData = new Mock<ITempDataDictionary>();
-            var target = new AdminController(mock.Object) { TempData = tempData.Object };
-            var product = new Product { Name = "Test" };
+            var target = new AdminController(mock.Object) {TempData = tempData.Object};
+            var product = new Product {Name = "Test"};
 
             //Act
             IActionResult result = target.Edit(product);
@@ -107,7 +107,7 @@ namespace SportsStore.Tests
             //Arrange
             var mock = new Mock<IProductRepository>();
             var target = new AdminController(mock.Object);
-            var product = new Product { Name = "Test" };
+            var product = new Product {Name = "Test"};
             target.ModelState.AddModelError("error", "error");
 
             //Act
@@ -116,6 +116,27 @@ namespace SportsStore.Tests
             //Assert
             mock.Verify(m => m.SaveProduct(It.IsAny<Product>()), Times.Never);
             Assert.IsType<ViewResult>(result);
+        }
+
+        [Fact]
+        public void Can_Delete_Valid_Products()
+        {
+            //Arrange
+            var product = new Product {ProductId = 2, Name = "Test"};
+            var mock = new Mock<IProductRepository>();
+            mock.Setup(m => m.Products).Returns(new[]
+            {
+                new Product {ProductId = 1, Name = "P1"},
+                product,
+                new Product {ProductId = 3, Name = "P3"},
+            }.AsQueryable());
+            var target = new AdminController(mock.Object);
+
+            //Act
+            target.Delete(product.ProductId);
+
+            //Assert
+            mock.Verify(m => m.DeleteProduct(product.ProductId));
         }
 
         private static T GetViewModel<T>(IActionResult actionResult) where T : class
