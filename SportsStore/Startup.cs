@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -26,6 +27,10 @@ namespace SportsStore
                     Configuration["Data:SportsStoreProducts:ConnectionString"]));
 
             services.AddTransient<IProductRepository, EFProductRepository>();
+            services.AddTransient<IOrderRepository, EFOrderRepository>();
+            services.AddScoped<Cart>(sp => SessionCart.GetCart(sp));
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
             services.AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddMemoryCache();

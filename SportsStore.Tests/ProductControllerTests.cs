@@ -3,9 +3,6 @@ using Moq;
 using SportsStore.Controllers;
 using SportsStore.Models;
 using SportsStore.Models.ViewModels;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
@@ -18,7 +15,7 @@ namespace SportsStore.Tests
         {
             //Arrange
             var mock = new Mock<IProductRepository>();
-            mock.Setup(repo => repo.Products).Returns((new Product[]
+            mock.Setup(repo => repo.Products).Returns((new[]
             {
                 new Product { ProductId = 1, Name = "P1" },
                 new Product { ProductId = 2, Name = "P2" },
@@ -36,8 +33,8 @@ namespace SportsStore.Tests
             var result = controller.List(null, 2).ViewData.Model as ProductsListViewModel;
 
             //Assert
-            Product[] products = result.Products.ToArray();
-            Assert.True(products.Length == 2);
+            Product[] products = result?.Products.ToArray();
+            Assert.True(products != null && products.Length == 2);
             Assert.Equal("P4", products[0].Name);
             Assert.Equal("P5", products[1].Name);
         }
@@ -47,7 +44,7 @@ namespace SportsStore.Tests
         {
             //Arrange
             var mock = new Mock<IProductRepository>();
-            mock.Setup(repo => repo.Products).Returns((new Product[]
+            mock.Setup(repo => repo.Products).Returns((new[]
             {
                 new Product { ProductId = 1, Name = "P1" },
                 new Product { ProductId = 2, Name = "P2" },
@@ -65,11 +62,11 @@ namespace SportsStore.Tests
             var result = controller.List(null, 2).ViewData.Model as ProductsListViewModel;
 
             //Assert
-            PagingInfo pagingInfo = result.PagingInfo;
-            Assert.Equal(2, pagingInfo.CurrentPage);
-            Assert.Equal(3, pagingInfo.ItemsPerPage);
-            Assert.Equal(5, pagingInfo.TotalItems);
-            Assert.Equal(2, pagingInfo.TotalPages);
+            PagingInfo pagingInfo = result?.PagingInfo;
+            Assert.Equal(2, pagingInfo?.CurrentPage);
+            Assert.Equal(3, pagingInfo?.ItemsPerPage);
+            Assert.Equal(5, pagingInfo?.TotalItems);
+            Assert.Equal(2, pagingInfo?.TotalPages);
         }
 
         [Fact]
@@ -77,7 +74,7 @@ namespace SportsStore.Tests
         {
             //Arrange
             var mock = new Mock<IProductRepository>();
-            mock.Setup(repo => repo.Products).Returns((new Product[]
+            mock.Setup(repo => repo.Products).Returns((new[]
             {
                 new Product { ProductId = 1, Name = "P1", Category = "Cat1" },
                 new Product { ProductId = 2, Name = "P2", Category = "Cat2" },
@@ -86,18 +83,17 @@ namespace SportsStore.Tests
                 new Product { ProductId = 5, Name = "P5", Category = "Cat3" },
             }).AsQueryable());
 
-            var productController = new ProductController(mock.Object);
-            productController.PageSize = 3;
+            var productController = new ProductController(mock.Object) { PageSize = 3 };
 
             //Act
             Product[] result =
                 (productController.List("Cat2", 1).ViewData.Model as ProductsListViewModel)
-                .Products.ToArray();
+                ?.Products.ToArray();
 
             //Assert
-            Assert.Equal(2, result.Length);
-            Assert.True(result[0].Name == "P2" && result[0].Category == "Cat2");
-            Assert.True(result[1].Name == "P4" && result[1].Category == "Cat2");
+            Assert.Equal(2, result?.Length);
+            Assert.True(result[0]?.Name == "P2" && result[0].Category == "Cat2");
+            Assert.True(result[1]?.Name == "P4" && result[1].Category == "Cat2");
         }
 
         [Fact]
@@ -105,7 +101,7 @@ namespace SportsStore.Tests
         {
             //Arrange
             var mock = new Mock<IProductRepository>();
-            mock.Setup(repo => repo.Products).Returns((new Product[]
+            mock.Setup(repo => repo.Products).Returns((new[]
             {
                 new Product { ProductId = 1, Name = "P1", Category = "Cat1" },
                 new Product { ProductId = 2, Name = "P2", Category = "Cat2" },
@@ -114,11 +110,9 @@ namespace SportsStore.Tests
                 new Product { ProductId = 5, Name = "P5", Category = "Cat3" },
             }).AsQueryable());
 
-            var target = new ProductController(mock.Object);
-            target.PageSize = 3;
+            var target = new ProductController(mock.Object) { PageSize = 3 };
 
-            Func<ViewResult, ProductsListViewModel> GetModel = result =>
-                result?.ViewData?.Model as ProductsListViewModel;
+            ProductsListViewModel GetModel(ViewResult result) => result?.ViewData?.Model as ProductsListViewModel;
 
             //Act
             int? res1 = GetModel(target.List("Cat1"))?.PagingInfo.TotalItems;

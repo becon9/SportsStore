@@ -16,26 +16,26 @@ namespace SportsStore.Tests
     public class NavigationMenuViewComponentTests
     {
         [Fact]
-        public void Can_Select_Catigories()
+        public void Can_Select_Categories()
         {
             //Arrange
             var mock = new Mock<IProductRepository>();
             mock.Setup(repo => repo.Products).Returns((new Product[]
             {
-                new Product { ProductId = 1, Name = "P1", Category = "Apples" },
-                new Product { ProductId = 2, Name = "P2", Category = "Apples" },
-                new Product { ProductId = 3, Name = "P3", Category = "Plums" },
-                new Product { ProductId = 4, Name = "P4", Category = "Oranges" },
+                new Product {ProductId = 1, Name = "P1", Category = "Apples"},
+                new Product {ProductId = 2, Name = "P2", Category = "Apples"},
+                new Product {ProductId = 3, Name = "P3", Category = "Plums"},
+                new Product {ProductId = 4, Name = "P4", Category = "Oranges"},
             }).AsQueryable());
 
             var target = new NavigationMenuViewComponent(mock.Object);
 
             //Act
             string[] results = ((IEnumerable<string>)(target.Invoke()
-                as ViewViewComponentResult)?.ViewData.Model).ToArray();
+                as ViewViewComponentResult)?.ViewData.Model)?.ToArray();
 
             //Assert
-            Assert.True(Enumerable.SequenceEqual(new string[] { "Apples", "Oranges", "Plums" }, results));
+            Assert.True(Enumerable.SequenceEqual(new[] { "Apples", "Oranges", "Plums" }, results));
         }
 
         [Fact]
@@ -46,22 +46,21 @@ namespace SportsStore.Tests
             var mock = new Mock<IProductRepository>();
             mock.Setup(m => m.Products).Returns((new Product[]
             {
-                new Product { ProductId = 1, Name = "P1", Category = "Apples" },
-                new Product { ProductId = 4, Name = "P2", Category = "Oranges" }
+                new Product {ProductId = 1, Name = "P1", Category = "Apples"},
+                new Product {ProductId = 4, Name = "P2", Category = "Oranges"}
             }).AsQueryable());
 
-            var target = new NavigationMenuViewComponent(mock.Object);
-            target.ViewComponentContext = new ViewComponentContext
+            var target = new NavigationMenuViewComponent(mock.Object)
             {
-                ViewContext = new ViewContext
+                ViewComponentContext = new ViewComponentContext
                 {
-                    RouteData = new RouteData()
+                    ViewContext = new ViewContext { RouteData = new RouteData() }
                 }
             };
             target.RouteData.Values["category"] = categoryToSelect;
 
             //Act
-            string result = (string) (target.Invoke() as ViewViewComponentResult)?.ViewData["SelectedCategory"];
+            string result = (string)(target.Invoke() as ViewViewComponentResult)?.ViewData["SelectedCategory"];
 
             //Asset
             Assert.Equal(categoryToSelect, result);

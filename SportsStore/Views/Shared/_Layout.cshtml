@@ -7,10 +7,12 @@
     <link rel="stylesheet"
           asp-href-include="/lib/bootstrap/dist/**/*.min.css"
           asp-href-exclude="**/*-reboot*,**/*-grid*" />
+    <script src="https://kit.fontawesome.com/9bdd2c5146.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <div class="navbar navbar-dark bg-dark" role="navigation">
-        <a class="navbar-brand" href="#">SPORTS STORE</a>
+        <a class="col navbar-brand" href="#">SPORTS STORE</a>
+        @await Component.InvokeAsync("CartSummary")
     </div>
     <div class="row m-1 p-1">
         <div id="categories" class="col-3">
