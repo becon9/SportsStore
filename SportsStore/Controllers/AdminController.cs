@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using SportsStore.Models;
+using System.Linq;
 
 namespace SportsStore.Controllers
 {
@@ -19,6 +16,11 @@ namespace SportsStore.Controllers
         public ViewResult Index()
         {
             return View(_repository.Products);
+        }
+
+        public ViewResult Create()
+        {
+            return View("Edit", new Product());
         }
 
         public ViewResult Edit(int productId)
