@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SportsStore.DAL\SportsStore.DAL.csproj" />
+    <ProjectReference Include="..\SportsStore.Infrastructure.Interfaces\SportsStore.Infrastructure.Interfaces.csproj" />
+  </ItemGroup>
+
+</Project>

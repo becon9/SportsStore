@@ -1,8 +1,6 @@
-﻿using SportsStore.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
+using SportsStore.BLL.DTO;
+using SportsStore.WEB.Models;
 using Xunit;
 
 namespace SportsStore.Tests
@@ -13,15 +11,15 @@ namespace SportsStore.Tests
         public void Can_Add_New_Lines()
         {
             //Arrange
-            var p1 = new Product { ProductId = 1, Name = "P1" };
-            var p2 = new Product { ProductId = 2, Name = "P2" };
+            var p1 = new ProductDto { ProductId = 1, Name = "P1" };
+            var p2 = new ProductDto { ProductId = 2, Name = "P2" };
 
             var target = new Cart();
 
             //Act
             target.AddItem(p1, 1);
             target.AddItem(p2, 1);
-            CartLine[] results = target.Lines.ToArray();
+            CartLineDto[] results = target.Lines.ToArray();
 
             //Assert
             Assert.Equal(2, results.Length);
@@ -33,8 +31,8 @@ namespace SportsStore.Tests
         public void Can_Add_Quantity_For_Existing_Lines()
         {
             //Arrange
-            var p1 = new Product { ProductId = 1, Name = "P1" };
-            var p2 = new Product { ProductId = 2, Name = "P2" };
+            var p1 = new ProductDto { ProductId = 1, Name = "P1" };
+            var p2 = new ProductDto { ProductId = 2, Name = "P2" };
 
             var target = new Cart();
 
@@ -42,7 +40,7 @@ namespace SportsStore.Tests
             target.AddItem(p1, 1);
             target.AddItem(p2, 1);
             target.AddItem(p1, 10);
-            CartLine[] results = target.Lines.OrderBy(c => c.Product.ProductId).ToArray();
+            CartLineDto[] results = target.Lines.OrderBy(c => c.Product.ProductId).ToArray();
 
             //Assert
             Assert.Equal(2, results.Length);
@@ -54,9 +52,9 @@ namespace SportsStore.Tests
         public void Car_Remove_Line()
         {
             //Arrange
-            var p1 = new Product { ProductId = 1, Name = "P1" };
-            var p2 = new Product { ProductId = 2, Name = "P2" };
-            var p3 = new Product { ProductId = 3, Name = "P3" };
+            var p1 = new ProductDto { ProductId = 1, Name = "P1" };
+            var p2 = new ProductDto { ProductId = 2, Name = "P2" };
+            var p3 = new ProductDto { ProductId = 3, Name = "P3" };
 
             var target = new Cart();
 
@@ -77,8 +75,8 @@ namespace SportsStore.Tests
         public void Calculate_Cart_Total()
         {
             //Arrange
-            var p1 = new Product { ProductId = 1, Name = "P1", Price = 100M };
-            var p2 = new Product { ProductId = 2, Name = "P2", Price = 50M };
+            var p1 = new ProductDto { ProductId = 1, Name = "P1", Price = 100M };
+            var p2 = new ProductDto { ProductId = 2, Name = "P2", Price = 50M };
 
             var target = new Cart();
 
@@ -96,8 +94,8 @@ namespace SportsStore.Tests
         public void Can_Clear_Contents()
         {
             //Arrange
-            var p1 = new Product { ProductId = 1, Name = "P1", Price = 100M };
-            var p2 = new Product { ProductId = 2, Name = "P2", Price = 50M };
+            var p1 = new ProductDto { ProductId = 1, Name = "P1", Price = 100M };
+            var p2 = new ProductDto { ProductId = 2, Name = "P2", Price = 50M };
 
             var target = new Cart();
 
