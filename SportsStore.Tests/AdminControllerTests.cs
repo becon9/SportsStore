@@ -1,5 +1,4 @@
 ﻿using Xunit;
-using SportsStore.Controllers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +6,9 @@ using System.Text;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Moq;
-using SportsStore.Models;
+using SportsStore.BLL.DTO;
+using SportsStore.BLL.Interfaces;
+using SportsStore.WEB.Controllers;
 
 namespace SportsStore.Tests
 {
@@ -17,18 +18,18 @@ namespace SportsStore.Tests
         public void Index_Contains_All_Products()
         {
             //Arrange
-            var mock = new Mock<IProductRepository>();
+            var mock = new Mock<IProductService>();
             mock.Setup(m => m.Products).Returns(new[]
             {
-                new Product {ProductId = 1, Name = "P1"},
-                new Product {ProductId = 2, Name = "P2"},
-                new Product {ProductId = 3, Name = "P3"},
+                new ProductDto {ProductId = 1, Name = "P1"},
+                new ProductDto {ProductId = 2, Name = "P2"},
+                new ProductDto {ProductId = 3, Name = "P3"},
             }.AsQueryable());
 
             var target = new AdminController(mock.Object);
 
             //Act
-            Product[] result = GetViewModel<IEnumerable<Product>>(target.Index())?.ToArray();
+            ProductDto[] result = GetViewModel<IEnumerable<ProductDto>>(target.Index())?.ToArray();
 
             //Assert
             Assert.Equal(3, result.Length);
@@ -41,20 +42,20 @@ namespace SportsStore.Tests
         public void Can_Edit_Product()
         {
             //Arrange
-            var mock = new Mock<IProductRepository>();
+            var mock = new Mock<IProductService>();
             mock.Setup(m => m.Products).Returns(new[]
             {
-                new Product {ProductId = 1, Name = "P1"},
-                new Product {ProductId = 2, Name = "P2"},
-                new Product {ProductId = 3, Name = "P3"}
+                new ProductDto {ProductId = 1, Name = "P1"},
+                new ProductDto {ProductId = 2, Name = "P2"},
+                new ProductDto {ProductId = 3, Name = "P3"}
             }.AsQueryable());
 
             var target = new AdminController(mock.Object);
 
             //Act
-            var p1 = GetViewModel<Product>(target.Edit(1));
-            var p2 = GetViewModel<Product>(target.Edit(2));
-            var p3 = GetViewModel<Product>(target.Edit(3));
+            var p1 = GetViewModel<ProductDto>(target.Edit(1));
+            var p2 = GetViewModel<ProductDto>(target.Edit(2));
+            var p3 = GetViewModel<ProductDto>(target.Edit(3));
 
             //Assert
             Assert.Equal(1, p1.ProductId);
@@ -66,18 +67,18 @@ namespace SportsStore.Tests
         public void Cannot_Edit_Nonexistent_Product()
         {
             //Arrange
-            var mock = new Mock<IProductRepository>();
+            var mock = new Mock<IProductService>();
             mock.Setup(m => m.Products).Returns(new[]
             {
-                new Product {ProductId = 1, Name = "P1"},
-                new Product {ProductId = 2, Name = "P2"},
-                new Product {ProductId = 3, Name = "P3"}
+                new ProductDto {ProductId = 1, Name = "P1"},
+                new ProductDto {ProductId = 2, Name = "P2"},
+                new ProductDto {ProductId = 3, Name = "P3"}
             }.AsQueryable());
 
             var target = new AdminController(mock.Object);
 
             //Act
-            var result = GetViewModel<Product>(target.Edit(4));
+            var result = GetViewModel<ProductDto>(target.Edit(4));
 
             //Assert
             Assert.Null(result);
@@ -87,10 +88,10 @@ namespace SportsStore.Tests
         public void Can_Save_Valid_Changes()
         {
             //Arrange
-            var mock = new Mock<IProductRepository>();
+            var mock = new Mock<IProductService>();
             var tempData = new Mock<ITempDataDictionary>();
             var target = new AdminController(mock.Object) {TempData = tempData.Object};
-            var product = new Product {Name = "Test"};
+            var product = new ProductDto {Name = "Test"};
 
             //Act
             IActionResult result = target.Edit(product);
@@ -105,16 +106,16 @@ namespace SportsStore.Tests
         public void Cannot_Save_Invalid_Changes()
         {
             //Arrange
-            var mock = new Mock<IProductRepository>();
+            var mock = new Mock<IProductService>();
             var target = new AdminController(mock.Object);
-            var product = new Product {Name = "Test"};
+            var product = new ProductDto() {Name = "Test"};
             target.ModelState.AddModelError("error", "error");
 
             //Act
             IActionResult result = target.Edit(product);
 
             //Assert
-            mock.Verify(m => m.SaveProduct(It.IsAny<Product>()), Times.Never);
+            mock.Verify(m => m.SaveProduct(It.IsAny<ProductDto>()), Times.Never);
             Assert.IsType<ViewResult>(result);
         }
 
@@ -122,13 +123,13 @@ namespace SportsStore.Tests
         public void Can_Delete_Valid_Products()
         {
             //Arrange
-            var product = new Product {ProductId = 2, Name = "Test"};
-            var mock = new Mock<IProductRepository>();
+            var product = new ProductDto() {ProductId = 2, Name = "Test"};
+            var mock = new Mock<IProductService>();
             mock.Setup(m => m.Products).Returns(new[]
             {
-                new Product {ProductId = 1, Name = "P1"},
+                new ProductDto {ProductId = 1, Name = "P1"},
                 product,
-                new Product {ProductId = 3, Name = "P3"},
+                new ProductDto() {ProductId = 3, Name = "P3"},
             }.AsQueryable());
             var target = new AdminController(mock.Object);
 
