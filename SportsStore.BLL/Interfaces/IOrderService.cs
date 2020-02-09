@@ -8,7 +8,5 @@ namespace SportsStore.BLL.Interfaces
     {
         IEnumerable<OrderDto> Orders { get; }
         void SaveOrder(OrderDto orderDto);
-
-        void MarkShipped(int orderId);
     }
 }

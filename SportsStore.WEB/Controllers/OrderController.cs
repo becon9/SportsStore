@@ -28,7 +28,14 @@ namespace SportsStore.WEB.Controllers
         [Authorize]
         public IActionResult MarkShipped(int orderId)
         {
-            _orderService.MarkShipped(orderId);
+            OrderDto order = _orderService.Orders
+                .FirstOrDefault(o => o.OrderId == orderId);
+
+            if (order != null)
+            {
+                order.Shipped = true;
+                _orderService.SaveOrder(order);
+            }
 
             return RedirectToAction(nameof(List));
         }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using AutoMapper;
 
 namespace SportsService.Infrastructure.Core
@@ -10,15 +9,16 @@ namespace SportsService.Infrastructure.Core
     {
         public static IMapper Configure()
         {
-            AppDomain domain = AppDomain.CurrentDomain;
-            IEnumerable<Assembly> assemblies = domain.GetAssemblies().Where(a => a.FullName.StartsWith("SportsStore"));
-            IEnumerable<Type> profiles = assemblies.SelectMany(s => s.GetTypes())
+            IEnumerable<Type> profiles = AppDomain.CurrentDomain.GetAssemblies()
+                .SelectMany(s => s.GetTypes())
                 .Where(a => typeof(AutoMapperProfile).IsAssignableFrom(a));
 
             var mapperConfiguration = new MapperConfiguration(a => profiles.ForEach(a.AddProfile));
 
             return mapperConfiguration.CreateMapper();
         }
+
+        
     }
 
     public class AutoMapperProfile : Profile
