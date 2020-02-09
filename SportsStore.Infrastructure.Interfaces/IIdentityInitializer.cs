@@ -1,7 +1,9 @@
-﻿namespace SportsStore.Infrastructure.Interfaces
+﻿using System.Threading.Tasks;
+
+namespace SportsStore.Infrastructure.Interfaces
 {
     public interface IIdentityInitializer
     {
-        void SeedData();
+        Task SeedData();
     }
 }

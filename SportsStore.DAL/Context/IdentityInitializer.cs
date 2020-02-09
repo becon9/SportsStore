@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using SportsStore.Infrastructure.Interfaces;
 
 namespace SportsStore.DAL.Context
@@ -15,7 +16,7 @@ namespace SportsStore.DAL.Context
             _userManager = userManager;
         }
 
-        public async void SeedData()
+        public async Task SeedData()
         {
             IdentityUser user = await _userManager.FindByIdAsync(AdminUser);
             if (user == null)
