@@ -8,7 +8,6 @@ namespace SportsStore.Models.ViewModels
         public string Name { get; set; }
 
         [Required]
-        // ReSharper disable once Mvc.TemplateNotResolved
         [UIHint("password")]
         public string Password { get; set; }
 
