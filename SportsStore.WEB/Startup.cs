@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SportsStore.DependencyResolver;
-using SportsStore.Infrastructure.Interfaces;
 using SportsStore.WEB.Models;
 
 namespace SportsStore.WEB
@@ -39,12 +38,11 @@ namespace SportsStore.WEB
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IIdentityInitializer identityInitializer)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                identityInitializer.SeedData();
             }
 
             app.UseStatusCodePages();

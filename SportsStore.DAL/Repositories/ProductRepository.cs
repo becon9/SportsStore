@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Microsoft.EntityFrameworkCore;
+﻿using System.Linq;
 using SportsStore.DAL.Context;
 using SportsStore.DAL.Entities;
 using SportsStore.DAL.Interfaces;
@@ -17,7 +15,7 @@ namespace SportsStore.DAL.Repositories
             _context = context;
         }
 
-        public IEnumerable<Product> Products => _context.Products;
+        public IQueryable<Product> Products => _context.Products;
         public void SaveProduct(Product product)
         {
             if (product.ProductId == 0)

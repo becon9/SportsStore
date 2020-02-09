@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using SportsStore.DAL.Context;
 using SportsStore.DAL.Entities;
@@ -17,7 +16,7 @@ namespace SportsStore.DAL.Repositories
             _context = context;
         }
 
-        public IEnumerable<Order> Orders => _context.Orders
+        public IQueryable<Order> Orders => _context.Orders
             .Include(o => o.Lines)
             .ThenInclude(l => l.Product);
 

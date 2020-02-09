@@ -28,13 +28,11 @@ namespace SportsStore.DependencyResolver
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
-                    configuration["Data:SportsStoreProducts:ConnectionString"],
-                    b => b.MigrationsAssembly("SportsStore.WEB")));
+                    configuration["Data:SportsStoreProducts:ConnectionString"]));
 
             services.AddDbContext<AppIdentityDbContext>(options =>
                 options.UseSqlServer(
-                    configuration["Data:SportStoreIdentity:ConnectionString"],
-                    b => b.MigrationsAssembly("SportsStore.WEB")));
+                    configuration["Data:SportStoreIdentity:ConnectionString"]));
             services.AddIdentity<IdentityUser, IdentityRole>()
                 .AddEntityFrameworkStores<AppIdentityDbContext>()
                 .AddDefaultTokenProviders();

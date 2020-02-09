@@ -9,7 +9,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SportsService.Infrastructure.Core\SportsService.Infrastructure.Core.csproj" />
     <ProjectReference Include="..\SportsStore.DAL\SportsStore.DAL.csproj" />
     <ProjectReference Include="..\SportsStore.Infrastructure.Interfaces\SportsStore.Infrastructure.Interfaces.csproj" />
   </ItemGroup>
