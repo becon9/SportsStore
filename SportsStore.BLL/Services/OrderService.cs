@@ -23,7 +23,7 @@ namespace SportsStore.BLL.Services
         {
             get
             {
-                IEnumerable<Order> orders = _orderRepository.Orders.AsEnumerable();
+                IEnumerable<Order> orders = _orderRepository.Orders;
 
                 IEnumerable<OrderDto> ordersDto = _mapper.Map<IEnumerable<Order>, IEnumerable<OrderDto>>(orders);
 
@@ -35,6 +35,18 @@ namespace SportsStore.BLL.Services
         {
             Order order = _mapper.Map<OrderDto, Order>(orderDto);
             _orderRepository.SaveOrder(order);
+        }
+
+        public void MarkShipped(int orderId)
+        {
+            Order order = _orderRepository.Orders
+                .FirstOrDefault(o => o.OrderId == orderId);
+
+            if (order != null)
+            {
+                order.Shipped = true;
+                _orderRepository.SaveOrder(order);
+            }
         }
     }
 }

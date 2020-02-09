@@ -10,6 +10,7 @@ namespace SportsStore.DAL.Context
             modelBuilder.Entity<Product>().HasData(
                 new Product
                 {
+                    ProductId = 1,
                     Name = "Kayak",
                     Description = "A boat for one person",
                     Category = "Watersports",
@@ -17,6 +18,7 @@ namespace SportsStore.DAL.Context
                 },
                 new Product
                 {
+                    ProductId = 2,
                     Name = "Lifejacket",
                     Description = "Protective and fashionable",
                     Category = "Watersports",
@@ -24,6 +26,7 @@ namespace SportsStore.DAL.Context
                 },
                 new Product
                 {
+                    ProductId = 3,
                     Name = "Soccer Ball",
                     Description = "FIFA-approved size and weight",
                     Category = "Soccer",
@@ -31,6 +34,7 @@ namespace SportsStore.DAL.Context
                 },
                 new Product
                 {
+                    ProductId = 4,
                     Name = "Corner Flags",
                     Description = "Give your playing field a professional touch",
                     Category = "Soccer",
@@ -38,6 +42,7 @@ namespace SportsStore.DAL.Context
                 },
                 new Product
                 {
+                    ProductId = 5,
                     Name = "Stadium",
                     Description = "Flat-packed 35,000-seat stadium",
                     Category = "Soccer",
@@ -45,6 +50,7 @@ namespace SportsStore.DAL.Context
                 },
                 new Product
                 {
+                    ProductId = 6,
                     Name = "Thinking Cap",
                     Description = "Improve brain efficiency by 75%",
                     Category = "Chess",
@@ -52,6 +58,7 @@ namespace SportsStore.DAL.Context
                 },
                 new Product
                 {
+                    ProductId = 7,
                     Name = "Unsteady Chair",
                     Description = "Secretly give your opponent a disadvantage",
                     Category = "Chess",
@@ -59,6 +66,7 @@ namespace SportsStore.DAL.Context
                 },
                 new Product
                 {
+                    ProductId = 8,
                     Name = "Human Chess Board",
                     Description = "A fun game for family",
                     Category = "Chess",
@@ -66,6 +74,7 @@ namespace SportsStore.DAL.Context
                 },
                 new Product
                 {
+                    ProductId = 9,
                     Name = "Bling-Bling King",
                     Description = "Gold-plated, diamong-studded King",
                     Category = "Chess",
