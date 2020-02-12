@@ -1,11 +1,11 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System.Globalization;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using SportsStore.DAL.Context;
 using SportsStore.DependencyResolver;
 using SportsStore.Infrastructure.Interfaces;
 using SportsStore.WEB.Models;
@@ -35,6 +35,7 @@ namespace SportsStore.WEB
 
             services.AddMemoryCache();
             services.AddSession();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,6 +45,14 @@ namespace SportsStore.WEB
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+
+                var supportedCultures = new[] { new CultureInfo("ru-UA") };
+                app.UseRequestLocalization(new RequestLocalizationOptions
+                {
+                    DefaultRequestCulture = new RequestCulture("ru-UA"),
+                    SupportedCultures = supportedCultures,
+                    SupportedUICultures = supportedCultures
+                });
                 
                 identityInitializer.SeedData().Wait();
             }

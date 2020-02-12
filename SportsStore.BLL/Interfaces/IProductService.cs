@@ -7,6 +7,7 @@ namespace SportsStore.BLL.Interfaces
     public interface IProductService
     {
         IEnumerable<ProductDto> Products { get; }
+        IEnumerable<ProductDto> ProductsWithImages { get; }
         void SaveProduct(ProductDto productDto);
 
         ProductDto DeleteProduct(int productId);

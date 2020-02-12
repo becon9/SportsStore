@@ -1,8 +1,11 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System;
+using System.IO;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SportsStore.BLL.DTO;
 using SportsStore.BLL.Interfaces;
 using System.Linq;
+using Microsoft.AspNetCore.Http;
 
 namespace SportsStore.WEB.Controllers
 {
@@ -36,6 +39,18 @@ namespace SportsStore.WEB.Controllers
         public IActionResult Edit(ProductDto product)
         {
             if (!ModelState.IsValid) return View(product);
+
+            IFormFileCollection files = HttpContext.Request.Form.Files;
+
+            if (files != null)
+            {
+                IFormFile file = files[0];
+                product.Image.ContentType = file.ContentType;
+                using var ms = new MemoryStream();
+                file.CopyTo(ms);
+                byte[] fileBytes = ms.ToArray();
+                product.Image.Base64 = Convert.ToBase64String(fileBytes);
+            }
 
             _productService.SaveProduct(product);
             TempData["message"] = $"{product.Name} has been saved";

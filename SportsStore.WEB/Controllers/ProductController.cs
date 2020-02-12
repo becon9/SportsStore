@@ -19,20 +19,20 @@ namespace SportsStore.WEB.Controllers
 
         public ViewResult List(string category, int productPage = 1)
         {
-            var result = _productService.Products
-                    .Where(p => category == null || p.Category == category)
-                    .OrderBy(p => p.ProductId)
-                    .Skip((productPage - 1) * PageSize)
-                    .Take(PageSize);
-            IEnumerable<ProductDto> productsDto = result as ProductDto[] ?? result.ToArray();
+            List<ProductDto> result = _productService.ProductsWithImages
+                .Where(p => category == null || p.Category == category)
+                .OrderBy(p => p.ProductId)
+                .Skip((productPage - 1) * PageSize)
+                .Take(PageSize)
+                .ToList();
             return View(new ProductsListViewModel
             {
-                Products = productsDto,
+                Products = result,
                 PagingInfo = new PagingInfo
                 {
                     CurrentPage = productPage,
                     ItemsPerPage = PageSize,
-                    TotalItems = category == null ? _productService.Products.Count() : productsDto.Count()
+                    TotalItems = category == null ? _productService.Products.Count() : result.Count()
                 },
                 CurrentCategory = category
             });

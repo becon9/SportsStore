@@ -40,7 +40,7 @@ namespace SportsStore.DependencyResolver
                 .AddEntityFrameworkStores<AppIdentityDbContext>()
                 .AddDefaultTokenProviders();
 
-            services.AddTransient<IIdentityInitializer, IdentityInitializer>();
+            services.AddScoped<IIdentityInitializer, IdentityInitializer>();
         }
     }
 }

@@ -30,8 +30,21 @@ namespace SportsStore.BLL.Services
 
             }
         }
+
+        public IEnumerable<ProductDto> ProductsWithImages
+        {
+            get
+            {
+                IEnumerable<Product> products = _productRepository.ProductsWithImages;
+                IEnumerable<ProductDto> productDtos =
+                    _mapper.Map<IEnumerable<Product>, IEnumerable<ProductDto>>(products);
+                return productDtos;
+            }
+        }
+
         public void SaveProduct(ProductDto productDto)
         {
+
             Product product = _mapper.Map<ProductDto, Product>(productDto);
             _productRepository.SaveProduct(product);
         }

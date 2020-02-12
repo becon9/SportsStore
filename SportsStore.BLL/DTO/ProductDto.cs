@@ -22,5 +22,7 @@ namespace SportsStore.BLL.DTO
 
         [Required(ErrorMessage = "Please specify a category")]
         public string Category { get; set; }
+
+        public ImageDto Image { get; set; }
     }
 }

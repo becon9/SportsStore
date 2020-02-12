@@ -18,6 +18,9 @@ namespace SportsStore.DAL.Repositories
         }
 
         public IEnumerable<Product> Products => _context.Products;
+
+        public IEnumerable<Product> ProductsWithImages => _context.Products
+            .Include(p => p.Image);
         public void SaveProduct(Product product)
         {
             if (product.ProductId == 0)
