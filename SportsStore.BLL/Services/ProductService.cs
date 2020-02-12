@@ -1,61 +1,75 @@
 ﻿using SportsStore.BLL.DTO;
 using SportsStore.BLL.Interfaces;
 using SportsStore.DAL.Entities;
-using SportsStore.DAL.Interfaces;
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
+using SportsStore.DAL;
 using SportsStore.Infrastructure.Interfaces;
 
 namespace SportsStore.BLL.Services
 {
     public class ProductService : IProductService
     {
-        private readonly IProductRepository _productRepository;
+        private readonly IUnitOfWork _uow;
         private readonly IMapper _mapper;
 
-        public ProductService(IProductRepository productRepository, IMapper mapper)
+        public ProductService(IUnitOfWork uow, IMapper mapper)
         {
-            _productRepository = productRepository;
+            _uow = uow;
             _mapper = mapper;
         }
 
-        public IEnumerable<ProductDto> Products
+        public void Add(ProductDto productDto)
         {
-            get
-            {
-                IEnumerable<Product> products = _productRepository.Products;
-
-                IEnumerable<ProductDto> productsDto = _mapper.Map<IEnumerable<Product>, IEnumerable<ProductDto>>(products);
-
-                return productsDto;
-
-            }
-        }
-
-        public IEnumerable<ProductDto> ProductsWithImages
-        {
-            get
-            {
-                IEnumerable<Product> products = _productRepository.ProductsWithImages;
-                IEnumerable<ProductDto> productDtos =
-                    _mapper.Map<IEnumerable<Product>, IEnumerable<ProductDto>>(products);
-                return productDtos;
-            }
-        }
-
-        public void SaveProduct(ProductDto productDto)
-        {
-
             Product product = _mapper.Map<ProductDto, Product>(productDto);
-            _productRepository.SaveProduct(product);
+            _uow.Products.Add(product);
         }
 
-        public ProductDto DeleteProduct(int productId)
+        public void Update(ProductDto entity)
         {
-            Product deleteProduct = _productRepository.DeleteProduct(productId);
+            Product product = _mapper.Map<ProductDto, Product>(entity);
+            _uow.Products.Update(product);
+        }
 
-            ProductDto deleteProductDto = _mapper.Map<Product, ProductDto>(deleteProduct);
+        public void Remove(ProductDto entity)
+        {
+            Product product = _mapper.Map<ProductDto, Product>(entity);
+            _uow.Products.Remove(product);
+        }
 
-            return deleteProductDto;
+        public void Remove(int id)
+        {
+            Product deleteProduct = _uow.Products.GetById(id);
+            _uow.Products.Remove(deleteProduct);
+        }
+
+        public ProductDto GetById(int id)
+        {
+            Product product = _uow.Products.GetById(id);
+
+            ProductDto productDto = _mapper.Map<Product, ProductDto>(product);
+
+            return productDto;
+        }
+
+        public IEnumerable<ProductDto> GetAll()
+        {
+            IEnumerable<Product> products = _uow.Products.GetAll();
+
+            IEnumerable<ProductDto> productDtos = _mapper.Map<IEnumerable<Product>, IEnumerable<ProductDto>>(products);
+
+            return productDtos;
+        }
+
+        public IEnumerable<ProductDto> GetProductsWithImages()
+        {
+            IList<Product> products = _uow.Products
+                .GetAll(include: queryable => queryable
+                    .Include(p => p.Image));
+
+            IEnumerable<ProductDto> productDtos =
+                _mapper.Map<IEnumerable<Product>, IEnumerable<ProductDto>>(products);
+            return productDtos;
         }
     }
 }

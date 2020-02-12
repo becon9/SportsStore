@@ -19,7 +19,7 @@ namespace SportsStore.WEB.Controllers
 
         public ViewResult List(string category, int productPage = 1)
         {
-            List<ProductDto> result = _productService.ProductsWithImages
+            List<ProductDto> result = _productService.GetProductsWithImages()
                 .Where(p => category == null || p.Category == category)
                 .OrderBy(p => p.ProductId)
                 .Skip((productPage - 1) * PageSize)
@@ -32,7 +32,7 @@ namespace SportsStore.WEB.Controllers
                 {
                     CurrentPage = productPage,
                     ItemsPerPage = PageSize,
-                    TotalItems = category == null ? _productService.Products.Count() : result.Count()
+                    TotalItems = category == null ? _productService.GetAll().Count() : result.Count()
                 },
                 CurrentCategory = category
             });

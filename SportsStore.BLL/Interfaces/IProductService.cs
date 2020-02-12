@@ -1,15 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using SportsStore.BLL.DTO;
+﻿using SportsStore.BLL.DTO;
+using System.Collections.Generic;
 
 namespace SportsStore.BLL.Interfaces
 {
-    public interface IProductService
+    public interface IProductService : IService<ProductDto>
     {
-        IEnumerable<ProductDto> Products { get; }
-        IEnumerable<ProductDto> ProductsWithImages { get; }
-        void SaveProduct(ProductDto productDto);
-
-        ProductDto DeleteProduct(int productId);
+        IEnumerable<ProductDto> GetProductsWithImages();
     }
 }

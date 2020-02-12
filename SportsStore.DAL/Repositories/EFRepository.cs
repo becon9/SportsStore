@@ -1,54 +1,68 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 using SportsStore.DAL.Context;
 using SportsStore.DAL.Interfaces;
 
 namespace SportsStore.DAL.Repositories
 {
-    public abstract class EFRepository<TEntity> : IRepository<TEntity> where TEntity : class
+    public class EFRepository<T> : IRepository<T> where T : class
     {
         private readonly ApplicationDbContext _context;
-        private readonly DbSet<TEntity> _dbSet;
+        private readonly DbSet<T> _dbSet;
 
         public EFRepository(ApplicationDbContext context)
         {
             _context = context;
-            _dbSet = context.Set<TEntity>();
+            _dbSet = context.Set<T>();
         }
 
-        public IEnumerable<TEntity> GetAll()
+        public T GetById(int id)
         {
-            return _dbSet.AsNoTracking().AsEnumerable();
+            return _context.Set<T>().Find(id);
         }
 
-        public IEnumerable<TEntity> Find(Func<TEntity, bool> predicate)
+        public IList<T> GetAll(Expression<Func<T, bool>> predicate = null,
+            Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null, 
+            bool disableTracking = true)
         {
-            return _dbSet.AsNoTracking().AsEnumerable().Where(predicate);
+            IQueryable<T> query = _dbSet;
+
+            if (disableTracking)
+            {
+                query.AsNoTracking();
+            }
+
+            if (include != null)
+            {
+                query = include(query);
+            }
+
+            if (predicate != null)
+            {
+                query = query.Where(predicate);
+            }
+
+            return query.ToList();
         }
 
-        public TEntity FindById(int id)
+        public void Add(T item)
         {
-            return _dbSet.Find(id);
-        }
-
-        public void Create(TEntity item)
-        {
-            _dbSet.Add(item);
+            _context.Set<T>().Add(item);
             _context.SaveChanges();
         }
-        public void Update(TEntity item)
+        public void Update(T item)
         {
             _context.Entry(item).State = EntityState.Modified;
             _context.SaveChanges();
         }
-        public TEntity Remove(TEntity item)
+        public void Remove(T item)
         {
-            _dbSet.Remove(item);
+            _context.Set<T>().Remove(item);
             _context.SaveChanges();
-
-            return item;
         }
     }
 }

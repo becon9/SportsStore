@@ -1,16 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
+using System.Linq.Expressions;
+using Microsoft.EntityFrameworkCore.Query;
 
 namespace SportsStore.DAL.Interfaces
 {
-    public interface IRepository<TEntity> where TEntity : class
+    public interface IRepository<T> where T : class
     {
-        TEntity FindById(int id);
-        IEnumerable<TEntity> GetAll();
-        IEnumerable<TEntity> Find(Func<TEntity, bool> predicate);
-        void Create(TEntity item);
-        void Update(TEntity item);
-        TEntity Remove(TEntity item);
+        void Add(T entity);
+        void Update(T entity);
+        void Remove(T entity);
+        T GetById(int id);
+        IList<T> GetAll(Expression<Func<T, bool>> predicate = null,
+            Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null, 
+            bool disableTracking = true);
+        
     }
 }

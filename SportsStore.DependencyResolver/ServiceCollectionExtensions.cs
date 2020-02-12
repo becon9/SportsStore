@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SportsStore.BLL.Interfaces;
 using SportsStore.BLL.Services;
+using SportsStore.DAL;
 using SportsStore.DAL.Context;
 using SportsStore.DAL.Interfaces;
 using SportsStore.DAL.Repositories;
@@ -19,9 +20,12 @@ namespace SportsStore.DependencyResolver
                 .AddSingleton<SportsStore.Infrastructure.Interfaces.IMapper,
                     SportsService.Infrastructure.Core.AutoMapper>();
 
-            //services.AddTransient<IRepository<Product>, ProductRepository>();
-            services.AddTransient<IOrderRepository, OrderRepository>();
-            services.AddTransient<IProductRepository, ProductRepository>();
+            services.AddScoped(typeof(IRepository<>), typeof(EFRepository<>));
+
+            services.AddScoped<IOrderRepository, OrderRepository>();
+            services.AddScoped<IProductRepository, ProductRepository>();
+
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<IOrderService, OrderService>();

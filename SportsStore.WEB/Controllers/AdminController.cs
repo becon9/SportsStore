@@ -21,7 +21,7 @@ namespace SportsStore.WEB.Controllers
 
         public ViewResult Index()
         {
-            return View(_productService.Products);
+            return View(_productService.GetAll());
         }
 
         public ViewResult Create()
@@ -31,7 +31,7 @@ namespace SportsStore.WEB.Controllers
 
         public ViewResult Edit(int productId)
         {
-            return View(_productService.Products
+            return View(_productService.GetAll()
                 .FirstOrDefault(p => p.ProductId == productId));
         }
 
@@ -42,7 +42,7 @@ namespace SportsStore.WEB.Controllers
 
             IFormFileCollection files = HttpContext.Request.Form.Files;
 
-            if (files != null)
+            if (files != null && files.Count > 0)
             {
                 IFormFile file = files[0];
                 product.Image.ContentType = file.ContentType;
@@ -52,7 +52,15 @@ namespace SportsStore.WEB.Controllers
                 product.Image.Base64 = Convert.ToBase64String(fileBytes);
             }
 
-            _productService.SaveProduct(product);
+            if (product.ProductId == 0)
+            {
+                _productService.Add(product);
+            }
+            else
+            {
+                _productService.Update(product);
+            }
+            
             TempData["message"] = $"{product.Name} has been saved";
             return RedirectToAction("Index");
 
@@ -61,9 +69,12 @@ namespace SportsStore.WEB.Controllers
         [HttpPost]
         public IActionResult Delete(int productId)
         {
-            ProductDto deletedProduct = _productService.DeleteProduct(productId);
+
+            ProductDto deletedProduct = _productService.GetById(productId);
+            
             if (deletedProduct != null)
             {
+                _productService.Remove(deletedProduct);
                 TempData["message"] = $"{deletedProduct.Name} was deleted";
             }
 

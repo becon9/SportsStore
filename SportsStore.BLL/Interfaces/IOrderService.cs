@@ -1,14 +1,12 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using SportsStore.BLL.DTO;
 
 namespace SportsStore.BLL.Interfaces
 {
-    public interface IOrderService
+    public interface IOrderService : IService<OrderDto>
     {
-        IEnumerable<OrderDto> Orders { get; }
-        void SaveOrder(OrderDto orderDto);
-
         void MarkShipped(int orderId);
+        IEnumerable<OrderDto> GetNotShippedOrders();
+        void AddProductToLine(OrderDto order);
     }
 }

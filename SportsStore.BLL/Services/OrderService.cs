@@ -1,52 +1,88 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using Microsoft.EntityFrameworkCore;
 using SportsStore.BLL.DTO;
 using SportsStore.BLL.Interfaces;
+using SportsStore.DAL;
 using SportsStore.DAL.Entities;
-using SportsStore.DAL.Interfaces;
 using SportsStore.Infrastructure.Interfaces;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace SportsStore.BLL.Services
 {
     public class OrderService : IOrderService
     {
-        private readonly IOrderRepository _orderRepository;
+        private readonly IUnitOfWork _uow;
         private readonly IMapper _mapper;
 
-        public OrderService(IOrderRepository orderRepository, IMapper mapper)
+        public OrderService(IUnitOfWork uow, IMapper mapper)
         {
-            _orderRepository = orderRepository;
+            _uow = uow;
             _mapper = mapper;
-        }
-
-        public IEnumerable<OrderDto> Orders
-        {
-            get
-            {
-                IEnumerable<Order> orders = _orderRepository.Orders;
-
-                IEnumerable<OrderDto> ordersDto = _mapper.Map<IEnumerable<Order>, IEnumerable<OrderDto>>(orders);
-
-                return ordersDto;
-            }
-        }
-
-        public void SaveOrder(OrderDto orderDto)
-        {
-            Order order = _mapper.Map<OrderDto, Order>(orderDto);
-            _orderRepository.SaveOrder(order);
         }
 
         public void MarkShipped(int orderId)
         {
-            Order order = _orderRepository.Orders
-                .FirstOrDefault(o => o.OrderId == orderId);
-
+            Order order = _uow.Orders.GetById(orderId);
             if (order != null)
             {
                 order.Shipped = true;
-                _orderRepository.SaveOrder(order);
+                _uow.Orders.Update(order);
             }
+        }
+
+        public IEnumerable<OrderDto> GetNotShippedOrders()
+        {
+            IEnumerable<Order> orders = _uow.Orders.GetAll(predicate: order => !order.Shipped);
+
+            IEnumerable<OrderDto> orderDtos = _mapper.Map<IEnumerable<Order>, IEnumerable<OrderDto>>(orders);
+
+            return orderDtos;
+        }
+
+        public void AddProductToLine(OrderDto orderDto)
+        {
+            Order order = _mapper.Map<OrderDto, Order>(orderDto);
+            _uow.Orders.AddProductToLine(order);
+        }
+
+        public void Add(OrderDto entity)
+        {
+            Order order = _mapper.Map<OrderDto, Order>(entity);
+            _uow.Orders.Add(order);
+        }
+
+        public void Update(OrderDto entity)
+        {
+            Order order = _mapper.Map<OrderDto, Order>(entity);
+            _uow.Orders.Update(order);
+        }
+
+        public void Remove(OrderDto entity)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void Remove(int id)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public OrderDto GetById(int id)
+        {
+            Order order = _uow.Orders.GetById(id);
+            OrderDto orderDto = _mapper.Map<Order, OrderDto>(order);
+            return orderDto;
+        }
+
+        public IEnumerable<OrderDto> GetAll()
+        {
+            IEnumerable<Order> orders = _uow.Orders.GetAll(include: queryable => queryable
+                .Include(o => o.Lines)
+                .ThenInclude(l => l.Product));
+
+            IEnumerable<OrderDto> ordersDto = _mapper.Map<IEnumerable<Order>, IEnumerable<OrderDto>>(orders);
+
+            return ordersDto;
         }
     }
 }

@@ -17,7 +17,7 @@ namespace SportsStore.WEB.Components
         public IViewComponentResult Invoke()
         {
             ViewBag.SelectedCategory = RouteData?.Values["category"];
-            return View(_productService.Products
+            return View(_productService.GetAll()
                 .Select(p => p.Category)
                 .Distinct()
                 .OrderBy(p => p));
