@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SportsStore.BLL.Interfaces;
+using SportsStore.BLL.Services.Interfaces;
 using System.Linq;
 
 

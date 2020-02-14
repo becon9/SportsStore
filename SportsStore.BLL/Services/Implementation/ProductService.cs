@@ -1,12 +1,12 @@
-﻿using SportsStore.BLL.DTO;
-using SportsStore.BLL.Interfaces;
-using SportsStore.DAL.Entities;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using SportsStore.BLL.DTO;
+using SportsStore.BLL.Services.Interfaces;
 using SportsStore.DAL;
+using SportsStore.DAL.Entities;
 using SportsStore.Infrastructure.Interfaces;
+using System.Collections.Generic;
 
-namespace SportsStore.BLL.Services
+namespace SportsStore.BLL.Services.Implementation
 {
     public class ProductService : IProductService
     {

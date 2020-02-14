@@ -1,7 +1,7 @@
 ﻿using SportsStore.BLL.DTO;
 using System.Collections.Generic;
 
-namespace SportsStore.BLL.Interfaces
+namespace SportsStore.BLL.Services.Interfaces
 {
     public interface IProductService : IService<ProductDto>
     {

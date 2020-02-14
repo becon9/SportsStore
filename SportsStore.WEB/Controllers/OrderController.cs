@@ -1,9 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.Linq;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SportsStore.BLL.DTO;
-using SportsStore.BLL.Interfaces;
+using SportsStore.BLL.Services.Interfaces;
 using SportsStore.WEB.Models;
+using System.Linq;
 
 namespace SportsStore.WEB.Controllers
 {

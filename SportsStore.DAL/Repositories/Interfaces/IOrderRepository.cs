@@ -1,6 +1,6 @@
 ﻿using SportsStore.DAL.Entities;
 
-namespace SportsStore.DAL.Interfaces
+namespace SportsStore.DAL.Repositories.Interfaces
 {
     public interface IOrderRepository : IRepository<Order>
     {

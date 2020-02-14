@@ -1,4 +1,4 @@
-﻿using SportsStore.DAL.Interfaces;
+﻿using SportsStore.DAL.Repositories.Interfaces;
 
 namespace SportsStore.DAL
 {

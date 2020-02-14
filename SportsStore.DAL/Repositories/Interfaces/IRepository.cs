@@ -4,7 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore.Query;
 
-namespace SportsStore.DAL.Interfaces
+namespace SportsStore.DAL.Repositories.Interfaces
 {
     public interface IRepository<T> where T : class
     {

@@ -1,9 +1,9 @@
 ﻿using SportsStore.DAL.Context;
 using SportsStore.DAL.Entities;
-using SportsStore.DAL.Interfaces;
 using System.Linq;
+using SportsStore.DAL.Repositories.Interfaces;
 
-namespace SportsStore.DAL.Repositories
+namespace SportsStore.DAL.Repositories.Implementation
 {
     public class OrderRepository : EFRepository<Order>, IOrderRepository
     {

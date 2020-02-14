@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace SportsStore.BLL.Interfaces
+namespace SportsStore.BLL.Services.Interfaces
 {
     public interface IService<T> where T : class
     {

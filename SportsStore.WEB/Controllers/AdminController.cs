@@ -1,11 +1,11 @@
-﻿using System;
-using System.IO;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SportsStore.BLL.DTO;
-using SportsStore.BLL.Interfaces;
+using SportsStore.BLL.Services.Interfaces;
+using System;
+using System.IO;
 using System.Linq;
-using Microsoft.AspNetCore.Http;
 
 namespace SportsStore.WEB.Controllers
 {

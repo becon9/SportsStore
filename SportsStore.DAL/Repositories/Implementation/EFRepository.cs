@@ -5,9 +5,9 @@ using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
 using SportsStore.DAL.Context;
-using SportsStore.DAL.Interfaces;
+using SportsStore.DAL.Repositories.Interfaces;
 
-namespace SportsStore.DAL.Repositories
+namespace SportsStore.DAL.Repositories.Implementation
 {
     public class EFRepository<T> : IRepository<T> where T : class
     {

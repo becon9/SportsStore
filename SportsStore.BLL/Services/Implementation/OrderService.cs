@@ -1,13 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SportsStore.BLL.DTO;
-using SportsStore.BLL.Interfaces;
+using SportsStore.BLL.Services.Interfaces;
 using SportsStore.DAL;
 using SportsStore.DAL.Entities;
 using SportsStore.Infrastructure.Interfaces;
 using System.Collections.Generic;
-using System.Linq;
 
-namespace SportsStore.BLL.Services
+namespace SportsStore.BLL.Services.Implementation
 {
     public class OrderService : IOrderService
     {
