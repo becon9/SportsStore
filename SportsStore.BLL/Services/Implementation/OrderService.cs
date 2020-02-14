@@ -58,12 +58,13 @@ namespace SportsStore.BLL.Services.Implementation
 
         public void Remove(OrderDto entity)
         {
-            throw new System.NotImplementedException();
+            Remove(entity.OrderId);
         }
 
         public void Remove(int id)
         {
-            throw new System.NotImplementedException();
+            Order order = _uow.Orders.GetById(id);
+            _uow.Orders.Remove(order);
         }
 
         public OrderDto GetById(int id)

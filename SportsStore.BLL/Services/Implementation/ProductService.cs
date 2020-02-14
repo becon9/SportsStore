@@ -33,8 +33,7 @@ namespace SportsStore.BLL.Services.Implementation
 
         public void Remove(ProductDto entity)
         {
-            Product product = _mapper.Map<ProductDto, Product>(entity);
-            _uow.Products.Remove(product);
+            Remove(entity.ProductId);
         }
 
         public void Remove(int id)
