@@ -2,11 +2,12 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using SportsStore.BLL.Interfaces;
-using SportsStore.BLL.Services;
+using SportsStore.BLL.Services.Implementation;
+using SportsStore.BLL.Services.Interfaces;
+using SportsStore.DAL;
 using SportsStore.DAL.Context;
-using SportsStore.DAL.Interfaces;
-using SportsStore.DAL.Repositories;
+using SportsStore.DAL.Repositories.Implementation;
+using SportsStore.DAL.Repositories.Interfaces;
 using SportsStore.Infrastructure.Interfaces;
 
 namespace SportsStore.DependencyResolver
@@ -19,12 +20,15 @@ namespace SportsStore.DependencyResolver
                 .AddSingleton<SportsStore.Infrastructure.Interfaces.IMapper,
                     SportsService.Infrastructure.Core.AutoMapper>();
 
-            //services.AddTransient<IRepository<Product>, ProductRepository>();
-            services.AddTransient<IOrderRepository, OrderRepository>();
-            services.AddTransient<IProductRepository, ProductRepository>();
+            services.AddScoped(typeof(IRepository<>), typeof(EFRepository<>));
 
-            services.AddTransient<IProductService, ProductService>();
-            services.AddTransient<IOrderService, OrderService>();
+            services.AddScoped<IOrderRepository, OrderRepository>();
+            services.AddScoped<IProductRepository, ProductRepository>();
+
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+            services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<IOrderService, OrderService>();
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
@@ -40,7 +44,7 @@ namespace SportsStore.DependencyResolver
                 .AddEntityFrameworkStores<AppIdentityDbContext>()
                 .AddDefaultTokenProviders();
 
-            services.AddTransient<IIdentityInitializer, IdentityInitializer>();
+            services.AddScoped<IIdentityInitializer, IdentityInitializer>();
         }
     }
 }

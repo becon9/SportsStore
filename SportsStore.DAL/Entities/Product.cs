@@ -12,5 +12,7 @@ namespace SportsStore.DAL.Entities
         public decimal Price { get; set; }
 
         public string Category { get; set; }
+
+        public Image Image { get; set; }
     }
 }

@@ -20,7 +20,30 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SportsService.Infrastructur
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SportsStore.Infrastructure.Interfaces", "SportsStore.Infrastructure.Interfaces\SportsStore.Infrastructure.Interfaces.csproj", "{B77136D3-7F62-425C-8A06-2CB0DD8F7873}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SportsStore.DependencyResolver", "SportsStore.DependencyResolver\SportsStore.DependencyResolver.csproj", "{E07710E7-91F4-43F5-9E77-BDE29609FF33}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SportsStore.DependencyResolver", "SportsStore.DependencyResolver\SportsStore.DependencyResolver.csproj", "{E07710E7-91F4-43F5-9E77-BDE29609FF33}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SportsStore.Api", "SportsStore.Api\SportsStore.Api.csproj", "{D1D6B51C-F6F4-4DC3-98E5-86EDC9695CEA}"
+EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "sportsstore.client", "sportsstore.client\", "{FD79A20E-82F1-4A75-B84E-CD0FBCA24D0E}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_63909"
+		Debug.AspNetCompiler.PhysicalPath = "sportsstore.client\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_63909\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_63909"
+		Release.AspNetCompiler.PhysicalPath = "sportsstore.client\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_63909\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "63909"
+		SlnRelativePath = "sportsstore.client\"
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -56,6 +79,14 @@ Global
 		{E07710E7-91F4-43F5-9E77-BDE29609FF33}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E07710E7-91F4-43F5-9E77-BDE29609FF33}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E07710E7-91F4-43F5-9E77-BDE29609FF33}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D1D6B51C-F6F4-4DC3-98E5-86EDC9695CEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1D6B51C-F6F4-4DC3-98E5-86EDC9695CEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1D6B51C-F6F4-4DC3-98E5-86EDC9695CEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1D6B51C-F6F4-4DC3-98E5-86EDC9695CEA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD79A20E-82F1-4A75-B84E-CD0FBCA24D0E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD79A20E-82F1-4A75-B84E-CD0FBCA24D0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD79A20E-82F1-4A75-B84E-CD0FBCA24D0E}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD79A20E-82F1-4A75-B84E-CD0FBCA24D0E}.Release|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

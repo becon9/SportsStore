@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SportsStore.BLL.Interfaces;
+using SportsStore.BLL.Services.Interfaces;
 using System.Linq;
 
 
@@ -17,7 +17,7 @@ namespace SportsStore.WEB.Components
         public IViewComponentResult Invoke()
         {
             ViewBag.SelectedCategory = RouteData?.Values["category"];
-            return View(_productService.Products
+            return View(_productService.GetAll()
                 .Select(p => p.Category)
                 .Distinct()
                 .OrderBy(p => p));

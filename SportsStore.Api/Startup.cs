@@ -1,16 +1,18 @@
-﻿using System.Globalization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Newtonsoft.Json;
 using SportsStore.DependencyResolver;
 using SportsStore.Infrastructure.Interfaces;
-using SportsStore.WEB.Models;
+using System.Globalization;
+//using FluentValidation.AspNetCore;
 
-namespace SportsStore.WEB
+namespace SportsStore.Api
 {
     public class Startup
     {
@@ -25,16 +27,28 @@ namespace SportsStore.WEB
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+
+            services.AddControllers().AddNewtonsoftJson(opt =>
+                opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
+
+            services.AddCors();
+
+            services.AddMvc(option => option.EnableEndpointRouting = false)
+                .SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
+                .AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore)
+                //.AddFluentValidation(
+                    //opt => opt.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly())
+                ;
+
             
-            services.AddControllersWithViews();
+
+            //services.AddScoped<Cart>(sp => SessionCart.GetCart(sp));
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             services.RegisterDependencies(Configuration);
 
-            services.AddScoped<Cart>(sp => SessionCart.GetCart(sp));
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-
-            services.AddMemoryCache();
-            services.AddSession();
+            //services.AddMemoryCache();
+            //services.AddSession();
 
         }
 
@@ -56,38 +70,15 @@ namespace SportsStore.WEB
                 
                 identityInitializer.SeedData().Wait();
             }
-            app.UseStatusCodePages();
+            app.UseCors(builder => builder.AllowAnyOrigin());
+            //app.UseStatusCodePages();
             app.UseStaticFiles();
-            app.UseSession();
+            app.UseHttpsRedirection();
+            //app.UseSession();
             app.UseRouting();
-            app.UseAuthentication();
             app.UseAuthorization();
-            app.UseEndpoints(endpoint =>
-            {
-                endpoint.MapControllerRoute(
-                    name: null,
-                    pattern: "{category}/Page{productPage:int}",
-                    defaults: new { controller = "Product", action = "List" });
 
-                endpoint.MapControllerRoute(
-                    name: null,
-                    pattern: "Page{productPage:int}",
-                    defaults: new { controller = "Product", action = "List", productPage = 1 });
-
-                endpoint.MapControllerRoute(
-                    name: null,
-                    pattern: "{category}",
-                    defaults: new { controller = "Product", action = "List", productPage = 1 });
-
-                endpoint.MapControllerRoute(
-                    name: null,
-                    pattern: "",
-                    defaults: new { controller = "Product", action = "List", productPage = 1 });
-
-                endpoint.MapControllerRoute(
-                    name: null,
-                    pattern: "{controller}/{action}/{id?}");
-            });
+            app.UseEndpoints(endpoint => { endpoint.MapControllers(); });
         }
     }
 }

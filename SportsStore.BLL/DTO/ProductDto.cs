@@ -16,11 +16,12 @@ namespace SportsStore.BLL.DTO
 
         [Required]
         [Range(0.01, Double.MaxValue,
-            ErrorMessage = "Please enter a positive price")]
-        [Column(TypeName = "decimal(18, 2)")]
+            ErrorMessage = "Please enter a positive price.")]
         public decimal Price { get; set; }
 
         [Required(ErrorMessage = "Please specify a category")]
         public string Category { get; set; }
+
+        public ImageDto Image { get; set; }
     }
 }
