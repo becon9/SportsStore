@@ -5,6 +5,7 @@ using SportsStore.DAL;
 using SportsStore.DAL.Entities;
 using SportsStore.Infrastructure.Interfaces;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SportsStore.BLL.Services.Implementation
 {
@@ -69,6 +70,14 @@ namespace SportsStore.BLL.Services.Implementation
             IEnumerable<ProductDto> productDtos =
                 _mapper.Map<IEnumerable<Product>, IEnumerable<ProductDto>>(products);
             return productDtos;
+        }
+
+        public IEnumerable<string> GetCategories()
+        {
+            IEnumerable<string> categories = _uow.Products.GetAll()
+                .Select(product => product.Category)
+                .Distinct();
+            return categories;
         }
     }
 }

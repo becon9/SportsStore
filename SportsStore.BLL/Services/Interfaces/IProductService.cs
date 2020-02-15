@@ -6,5 +6,7 @@ namespace SportsStore.BLL.Services.Interfaces
     public interface IProductService : IService<ProductDto>
     {
         IEnumerable<ProductDto> GetProductsWithImages();
+
+        IEnumerable<string> GetCategories();
     }
 }
