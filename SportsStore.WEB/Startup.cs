@@ -46,10 +46,10 @@ namespace SportsStore.WEB
             {
                 app.UseDeveloperExceptionPage();
 
-                var supportedCultures = new[] { new CultureInfo("ru-UA") };
+                var supportedCultures = new[] { new CultureInfo("en-US") };
                 app.UseRequestLocalization(new RequestLocalizationOptions
                 {
-                    DefaultRequestCulture = new RequestCulture("ru-UA"),
+                    DefaultRequestCulture = new RequestCulture("en-US"),
                     SupportedCultures = supportedCultures,
                     SupportedUICultures = supportedCultures
                 });
