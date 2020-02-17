@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reflection;
 using AutoMapper;
 
-namespace SportsService.Infrastructure.Core
+namespace SportsStore.Infrastructure.Core
 {
     public static class AutoMapperConfiguration
     {

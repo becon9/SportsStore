@@ -14,4 +14,20 @@
     <ProjectReference Include="..\SportsStore.Infrastructure.Interfaces\SportsStore.Infrastructure.Interfaces.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Remove="Properties\PublishProfiles\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Remove="Properties\PublishProfiles\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Properties\PublishProfiles\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Properties\PublishProfiles\**" />
+  </ItemGroup>
+
 </Project>

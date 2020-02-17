@@ -14,7 +14,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SportsStore.DAL", "SportsSt
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SportsStore.BLL", "SportsStore.BLL\SportsStore.BLL.csproj", "{7B9F308C-90D8-4008-B38F-FC2EB4518436}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SportsService.Infrastructure.Core", "SportsService.Infrastructure.Core\SportsService.Infrastructure.Core.csproj", "{D38D183E-8EE5-4D98-BFC2-43FD7D9838C8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SportsStore.Infrastructure.Core", "SportsStore.Infrastructure.Core\SportsStore.Infrastructure.Core.csproj", "{D38D183E-8EE5-4D98-BFC2-43FD7D9838C8}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SportsStore.Infrastructure.Interfaces", "SportsStore.Infrastructure.Interfaces\SportsStore.Infrastructure.Interfaces.csproj", "{B77136D3-7F62-425C-8A06-2CB0DD8F7873}"
 EndProject
@@ -59,9 +59,9 @@ Global
 		{D1D6B51C-F6F4-4DC3-98E5-86EDC9695CEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D1D6B51C-F6F4-4DC3-98E5-86EDC9695CEA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7976AB01-6DC0-4FEF-8BEA-94EFF4E426E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7976AB01-6DC0-4FEF-8BEA-94EFF4E426E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7976AB01-6DC0-4FEF-8BEA-94EFF4E426E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7976AB01-6DC0-4FEF-8BEA-94EFF4E426E0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7976AB01-6DC0-4FEF-8BEA-94EFF4E426E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

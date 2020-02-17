@@ -45,7 +45,7 @@ namespace SportsStore.Api
             //services.AddScoped<Cart>(sp => SessionCart.GetCart(sp));
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
-            services.RegisterDependencies(Configuration);
+            services.RegisterDependenciesApi(Configuration);
 
             //services.AddMemoryCache();
             //services.AddSession();
@@ -53,8 +53,8 @@ namespace SportsStore.Api
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env,
-            IIdentityInitializer identityInitializer)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+            //IIdentityInitializer identityInitializer)
         {
             if (env.IsDevelopment())
             {
@@ -68,7 +68,7 @@ namespace SportsStore.Api
                     SupportedUICultures = supportedCultures
                 });
                 
-                identityInitializer.SeedData().Wait();
+                //identityInitializer.SeedData().Wait();
             }
             app.UseCors(builder => builder.AllowAnyOrigin());
             //app.UseStatusCodePages();
@@ -76,7 +76,7 @@ namespace SportsStore.Api
             app.UseHttpsRedirection();
             //app.UseSession();
             app.UseRouting();
-            app.UseAuthorization();
+            //app.UseAuthorization();
 
             app.UseEndpoints(endpoint => { endpoint.MapControllers(); });
         }
