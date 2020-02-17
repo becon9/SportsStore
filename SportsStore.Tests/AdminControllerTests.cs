@@ -1,14 +1,13 @@
-﻿using Xunit;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Moq;
 using SportsStore.BLL.DTO;
-using SportsStore.BLL.Interfaces;
+using SportsStore.BLL.Services.Interfaces;
 using SportsStore.WEB.Controllers;
+using Xunit;
 
 namespace SportsStore.Tests
 {
@@ -19,7 +18,7 @@ namespace SportsStore.Tests
         {
             //Arrange
             var mock = new Mock<IProductService>();
-            mock.Setup(m => m.Products).Returns(new[]
+            mock.Setup(service => service.GetAll()).Returns(new[]
             {
                 new ProductDto {ProductId = 1, Name = "P1"},
                 new ProductDto {ProductId = 2, Name = "P2"},
@@ -32,10 +31,10 @@ namespace SportsStore.Tests
             ProductDto[] result = GetViewModel<IEnumerable<ProductDto>>(target.Index())?.ToArray();
 
             //Assert
-            Assert.Equal(3, result.Length);
-            Assert.Equal("P1", result[0].Name);
-            Assert.Equal("P2", result[1].Name);
-            Assert.Equal("P3", result[2].Name);
+            Assert.Equal(3, result?.Length);
+            Assert.Equal("P1", result?[0].Name);
+            Assert.Equal("P2", result?[1].Name);
+            Assert.Equal("P3", result?[2].Name);
         }
 
         [Fact]
@@ -43,7 +42,7 @@ namespace SportsStore.Tests
         {
             //Arrange
             var mock = new Mock<IProductService>();
-            mock.Setup(m => m.Products).Returns(new[]
+            mock.Setup(service => service.GetAll()).Returns(new[]
             {
                 new ProductDto {ProductId = 1, Name = "P1"},
                 new ProductDto {ProductId = 2, Name = "P2"},
@@ -68,7 +67,7 @@ namespace SportsStore.Tests
         {
             //Arrange
             var mock = new Mock<IProductService>();
-            mock.Setup(m => m.Products).Returns(new[]
+            mock.Setup(service => service.GetAll()).Returns(new[]
             {
                 new ProductDto {ProductId = 1, Name = "P1"},
                 new ProductDto {ProductId = 2, Name = "P2"},
@@ -97,7 +96,7 @@ namespace SportsStore.Tests
             IActionResult result = target.Edit(product);
 
             //Assert
-            mock.Verify(m => m.SaveProduct(product));
+            mock.Verify(service => service.Add(product));
             Assert.IsType<RedirectToActionResult>(result);
             Assert.Equal("Index", (result as RedirectToActionResult)?.ActionName);
         }
@@ -115,7 +114,7 @@ namespace SportsStore.Tests
             IActionResult result = target.Edit(product);
 
             //Assert
-            mock.Verify(m => m.SaveProduct(It.IsAny<ProductDto>()), Times.Never);
+            mock.Verify(service => service.Add(It.IsAny<ProductDto>()), Times.Never);
             Assert.IsType<ViewResult>(result);
         }
 
@@ -125,19 +124,21 @@ namespace SportsStore.Tests
             //Arrange
             var product = new ProductDto() {ProductId = 2, Name = "Test"};
             var mock = new Mock<IProductService>();
-            mock.Setup(m => m.Products).Returns(new[]
+            mock.Setup(service => service.GetById(It.IsAny<int>())).Returns(product);
+            
+            var httpContext = new DefaultHttpContext();
+            var tempData = new TempDataDictionary(httpContext, Mock.Of<ITempDataProvider>());
+            
+            var target = new AdminController(mock.Object)
             {
-                new ProductDto {ProductId = 1, Name = "P1"},
-                product,
-                new ProductDto() {ProductId = 3, Name = "P3"},
-            }.AsQueryable());
-            var target = new AdminController(mock.Object);
+                TempData = tempData
+            };
 
             //Act
             target.Delete(product.ProductId);
 
             //Assert
-            mock.Verify(m => m.DeleteProduct(product.ProductId));
+            mock.Verify(service => service.Remove(product));
         }
 
         private static T GetViewModel<T>(IActionResult actionResult) where T : class

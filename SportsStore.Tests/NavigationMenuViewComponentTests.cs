@@ -3,10 +3,10 @@ using Microsoft.AspNetCore.Mvc.ViewComponents;
 using Microsoft.AspNetCore.Routing;
 using Moq;
 using SportsStore.BLL.DTO;
-using SportsStore.BLL.Interfaces;
 using SportsStore.WEB.Components;
 using System.Collections.Generic;
 using System.Linq;
+using SportsStore.BLL.Services.Interfaces;
 using Xunit;
 
 namespace SportsStore.Tests
@@ -18,7 +18,7 @@ namespace SportsStore.Tests
         {
             //Arrange
             var mock = new Mock<IProductService>();
-            mock.Setup(repo => repo.Products).Returns((new[]
+            mock.Setup(service => service.GetAll()).Returns((new[]
             {
                 new ProductDto {ProductId = 1, Name = "P1", Category = "Apples"},
                 new ProductDto {ProductId = 2, Name = "P2", Category = "Apples"},
@@ -42,7 +42,7 @@ namespace SportsStore.Tests
             //Arrange
             const string categoryToSelect = "Apples";
             var mock = new Mock<IProductService>();
-            mock.Setup(m => m.Products).Returns((new[]
+            mock.Setup(service => service.GetAll()).Returns((new[]
             {
                 new ProductDto {ProductId = 1, Name = "P1", Category = "Apples"},
                 new ProductDto {ProductId = 4, Name = "P2", Category = "Oranges"}

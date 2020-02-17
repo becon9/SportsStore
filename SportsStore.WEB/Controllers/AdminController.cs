@@ -40,7 +40,7 @@ namespace SportsStore.WEB.Controllers
         {
             if (!ModelState.IsValid) return View(product);
 
-            IFormFileCollection files = HttpContext.Request.Form.Files;
+            IFormFileCollection files = HttpContext?.Request?.Form?.Files;
 
             if (files != null && files.Count > 0)
             {
