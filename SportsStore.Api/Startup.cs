@@ -70,7 +70,11 @@ namespace SportsStore.Api
                 
                 //identityInitializer.SeedData().Wait();
             }
-            app.UseCors(builder => builder.AllowAnyOrigin());
+
+            app.UseCors(builder => builder
+                .AllowAnyOrigin()
+                .AllowAnyHeader()
+                .AllowAnyMethod());
             //app.UseStatusCodePages();
             app.UseStaticFiles();
             app.UseHttpsRedirection();

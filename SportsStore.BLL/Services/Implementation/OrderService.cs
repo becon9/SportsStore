@@ -38,10 +38,12 @@ namespace SportsStore.BLL.Services.Implementation
             return orderDtos;
         }
 
-        public void AddProductToLine(OrderDto orderDto)
+        public OrderDto AddProductToLine(OrderDto orderDto)
         {
             Order order = _mapper.Map<OrderDto, Order>(orderDto);
-            _uow.Orders.AddProductToLine(order);
+            order = _uow.Orders.AddProductToLine(order);
+            orderDto = _mapper.Map<Order, OrderDto>(order);
+            return orderDto;
         }
 
         public void Add(OrderDto entity)

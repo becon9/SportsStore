@@ -17,22 +17,22 @@ namespace SportsStore.Api.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<ProductDto> GetAllProducts()
+        public IActionResult GetAllProducts()
         {
-            return _productService.GetAll();
+            return Ok(_productService.GetAll());
         }
 
         [HttpGet("{id}")]
-        public ProductDto GetById(int id)
+        public IActionResult GetById(int id)
         {
             ProductDto product = _productService.GetById(id);
-            return product;
+            return Ok(product);
         }
 
         [HttpGet("categories")]
-        public IEnumerable<string> GetCategories()
+        public IActionResult GetCategories()
         {
-            return _productService.GetCategories();
+            return Ok(_productService.GetCategories());
         }
     }
 }

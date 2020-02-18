@@ -26,7 +26,7 @@ namespace SportsStore.DAL.Repositories.Implementation
         }*/
 
 
-        public void AddProductToLine(Order order)
+        public Order AddProductToLine(Order order)
         {
             _context.AttachRange(order.Lines.Select(l => l.Product));
             if (order.OrderId == 0)
@@ -34,6 +34,7 @@ namespace SportsStore.DAL.Repositories.Implementation
                 Add(order);
             }
             _context.SaveChanges();
+            return order;
         }
     }
 }
