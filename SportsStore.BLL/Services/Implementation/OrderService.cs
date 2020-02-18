@@ -60,12 +60,12 @@ namespace SportsStore.BLL.Services.Implementation
 
         public void Remove(OrderDto entity)
         {
-            Remove(entity.OrderId);
+            Remove(entity.Id);
         }
 
         public void Remove(int id)
         {
-            Order order = _uow.Orders.GetById(id);
+            var order = new Order {Id = id};
             _uow.Orders.Remove(order);
         }
 

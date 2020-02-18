@@ -2,9 +2,9 @@
 
 namespace SportsStore.DAL.Entities
 {
-    public class Order
+    public class Order : IEntity
     {
-        public int OrderId { get; set; }
+        public int Id { get; set; }
         public ICollection<CartLine> Lines { get; set; }
         public bool Shipped { get; set; }
         public string Name { get; set; }
@@ -14,9 +14,9 @@ namespace SportsStore.DAL.Entities
         public bool GiftWrap { get; set; }
     }
 
-    public class CartLine
+    public class CartLine : IEntity
     {
-        public int CartLineId { get; set; }
+        public int Id { get; set; }
         public Product Product { get; set; }
         public int Quantity { get; set; }
     }

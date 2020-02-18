@@ -18,11 +18,11 @@ namespace SportsStore.Tests
             var mock = new Mock<IProductService>();
             mock.Setup(service => service.GetProductsWithImages()).Returns((new[]
             {
-                new ProductDto { ProductId = 1, Name = "P1" },
-                new ProductDto { ProductId = 2, Name = "P2" },
-                new ProductDto { ProductId = 3, Name = "P3" },
-                new ProductDto { ProductId = 4, Name = "P4" },
-                new ProductDto { ProductId = 5, Name = "P5" },
+                new ProductDto {Id = 1, Name = "P1"},
+                new ProductDto {Id = 2, Name = "P2"},
+                new ProductDto {Id = 3, Name = "P3"},
+                new ProductDto {Id = 4, Name = "P4"},
+                new ProductDto {Id = 5, Name = "P5"},
             }).AsQueryable());
 
             var controller = new ProductController(mock.Object)
@@ -47,11 +47,11 @@ namespace SportsStore.Tests
             var mock = new Mock<IProductService>();
             mock.Setup(service => service.GetAll()).Returns((new[]
             {
-                new ProductDto { ProductId = 1, Name = "P1" },
-                new ProductDto { ProductId = 2, Name = "P2" },
-                new ProductDto { ProductId = 3, Name = "P3" },
-                new ProductDto { ProductId = 4, Name = "P4" },
-                new ProductDto { ProductId = 5, Name = "P5" },
+                new ProductDto {Id = 1, Name = "P1"},
+                new ProductDto {Id = 2, Name = "P2"},
+                new ProductDto {Id = 3, Name = "P3"},
+                new ProductDto {Id = 4, Name = "P4"},
+                new ProductDto {Id = 5, Name = "P5"},
             }).AsQueryable());
 
             var controller = new ProductController(mock.Object)
@@ -77,14 +77,14 @@ namespace SportsStore.Tests
             var mock = new Mock<IProductService>();
             mock.Setup(service => service.GetProductsWithImages()).Returns((new[]
             {
-                new ProductDto { ProductId = 1, Name = "P1", Category = "Cat1" },
-                new ProductDto { ProductId = 2, Name = "P2", Category = "Cat2" },
-                new ProductDto { ProductId = 3, Name = "P3", Category = "Cat1" },
-                new ProductDto { ProductId = 4, Name = "P4", Category = "Cat2" },
-                new ProductDto { ProductId = 5, Name = "P5", Category = "Cat3" },
+                new ProductDto {Id = 1, Name = "P1", Category = "Cat1"},
+                new ProductDto {Id = 2, Name = "P2", Category = "Cat2"},
+                new ProductDto {Id = 3, Name = "P3", Category = "Cat1"},
+                new ProductDto {Id = 4, Name = "P4", Category = "Cat2"},
+                new ProductDto {Id = 5, Name = "P5", Category = "Cat3"},
             }).AsQueryable());
 
-            var productController = new ProductController(mock.Object) { PageSize = 3 };
+            var productController = new ProductController(mock.Object) {PageSize = 3};
 
             //Act
             ProductDto[] result =
@@ -104,16 +104,16 @@ namespace SportsStore.Tests
             var mock = new Mock<IProductService>();
             mock.Setup(service => service.GetProductsWithImages()).Returns(new[]
             {
-                new ProductDto { ProductId = 1, Name = "P1", Category = "Cat1" },
-                new ProductDto { ProductId = 2, Name = "P2", Category = "Cat2" },
-                new ProductDto { ProductId = 3, Name = "P3", Category = "Cat1" },
-                new ProductDto { ProductId = 4, Name = "P4", Category = "Cat2" },
-                new ProductDto { ProductId = 5, Name = "P5", Category = "Cat3" },
+                new ProductDto {Id = 1, Name = "P1", Category = "Cat1"},
+                new ProductDto {Id = 2, Name = "P2", Category = "Cat2"},
+                new ProductDto {Id = 3, Name = "P3", Category = "Cat1"},
+                new ProductDto {Id = 4, Name = "P4", Category = "Cat2"},
+                new ProductDto {Id = 5, Name = "P5", Category = "Cat3"},
             }.AsQueryable());
 
             mock.Setup(service => service.GetAll()).Returns(mock.Object.GetProductsWithImages());
 
-            var target = new ProductController(mock.Object) { PageSize = 3 };
+            var target = new ProductController(mock.Object) {PageSize = 3};
 
             ProductsListViewModel GetModel(ViewResult result) => result?.ViewData?.Model as ProductsListViewModel;
 

@@ -8,7 +8,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
 using SportsStore.DependencyResolver;
-using SportsStore.Infrastructure.Interfaces;
 using System.Globalization;
 //using FluentValidation.AspNetCore;
 

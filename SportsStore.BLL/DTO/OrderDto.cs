@@ -7,7 +7,7 @@ namespace SportsStore.BLL.DTO
     public class OrderDto
     {
         [BindNever]
-        public int OrderId { get; set; }
+        public int Id { get; set; }
 
         [BindNever]
         public ICollection<CartLineDto> Lines { get; set; }

@@ -17,10 +17,10 @@ namespace SportsStore.DependencyResolver
         public static void RegisterDependenciesWeb(this IServiceCollection services, IConfiguration configuration)
         {
             services
-                .AddSingleton<SportsStore.Infrastructure.Interfaces.IMapper,
+                .AddSingleton<IMapper,
                     Infrastructure.Core.AutoMapper>();
 
-            services.AddScoped(typeof(IRepository<>), typeof(EFRepository<>));
+            services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
 
             services.AddScoped<IOrderRepository, OrderRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
@@ -50,10 +50,10 @@ namespace SportsStore.DependencyResolver
         public static void RegisterDependenciesApi(this IServiceCollection services, IConfiguration configuration)
         {
             services
-                .AddSingleton<SportsStore.Infrastructure.Interfaces.IMapper,
+                .AddSingleton<IMapper,
                     Infrastructure.Core.AutoMapper>();
 
-            services.AddScoped(typeof(IRepository<>), typeof(EFRepository<>));
+            services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
 
             services.AddScoped<IOrderRepository, OrderRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();

@@ -4,7 +4,7 @@ using SportsStore.DAL.Repositories.Interfaces;
 
 namespace SportsStore.DAL.Repositories.Implementation
 {
-    public class ProductRepository : EFRepository<Product>, IProductRepository
+    public class ProductRepository : EfRepository<Product>, IProductRepository
     {
         private readonly ApplicationDbContext _context;
 

@@ -9,20 +9,25 @@ using SportsStore.DAL.Repositories.Interfaces;
 
 namespace SportsStore.DAL.Repositories.Implementation
 {
-    public class EFRepository<T> : IRepository<T> where T : class
+    public class EfRepository<T> : IRepository<T> where T : class, IEntity
     {
         private readonly ApplicationDbContext _context;
         private readonly DbSet<T> _dbSet;
 
-        public EFRepository(ApplicationDbContext context)
+        public EfRepository(ApplicationDbContext context)
         {
             _context = context;
             _dbSet = context.Set<T>();
         }
 
-        public T GetById(int id)
+        public T GetById(int id, bool disableTracking = true)
         {
-            return _context.Set<T>().Find(id);
+            IQueryable<T> query = _dbSet;
+            if (disableTracking)
+            {
+                query.AsNoTracking();
+            }
+            return query.FirstOrDefault(entity => entity.Id == id);
         }
 
         public IList<T> GetAll(Expression<Func<T, bool>> predicate = null,
@@ -61,6 +66,7 @@ namespace SportsStore.DAL.Repositories.Implementation
         }
         public void Remove(T item)
         {
+            _context.Set<T>().Attach(item);
             _context.Set<T>().Remove(item);
             _context.SaveChanges();
         }

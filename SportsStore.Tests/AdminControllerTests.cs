@@ -20,9 +20,9 @@ namespace SportsStore.Tests
             var mock = new Mock<IProductService>();
             mock.Setup(service => service.GetAll()).Returns(new[]
             {
-                new ProductDto {ProductId = 1, Name = "P1"},
-                new ProductDto {ProductId = 2, Name = "P2"},
-                new ProductDto {ProductId = 3, Name = "P3"},
+                new ProductDto {Id = 1, Name = "P1"},
+                new ProductDto {Id = 2, Name = "P2"},
+                new ProductDto {Id = 3, Name = "P3"},
             }.AsQueryable());
 
             var target = new AdminController(mock.Object);
@@ -44,9 +44,9 @@ namespace SportsStore.Tests
             var mock = new Mock<IProductService>();
             mock.Setup(service => service.GetAll()).Returns(new[]
             {
-                new ProductDto {ProductId = 1, Name = "P1"},
-                new ProductDto {ProductId = 2, Name = "P2"},
-                new ProductDto {ProductId = 3, Name = "P3"}
+                new ProductDto {Id = 1, Name = "P1"},
+                new ProductDto {Id = 2, Name = "P2"},
+                new ProductDto {Id = 3, Name = "P3"}
             }.AsQueryable());
 
             var target = new AdminController(mock.Object);
@@ -57,9 +57,9 @@ namespace SportsStore.Tests
             var p3 = GetViewModel<ProductDto>(target.Edit(3));
 
             //Assert
-            Assert.Equal(1, p1.ProductId);
-            Assert.Equal(2, p2.ProductId);
-            Assert.Equal(3, p3.ProductId);
+            Assert.Equal(1, p1.Id);
+            Assert.Equal(2, p2.Id);
+            Assert.Equal(3, p3.Id);
         }
 
         [Fact]
@@ -69,9 +69,9 @@ namespace SportsStore.Tests
             var mock = new Mock<IProductService>();
             mock.Setup(service => service.GetAll()).Returns(new[]
             {
-                new ProductDto {ProductId = 1, Name = "P1"},
-                new ProductDto {ProductId = 2, Name = "P2"},
-                new ProductDto {ProductId = 3, Name = "P3"}
+                new ProductDto {Id = 1, Name = "P1"},
+                new ProductDto {Id = 2, Name = "P2"},
+                new ProductDto {Id = 3, Name = "P3"}
             }.AsQueryable());
 
             var target = new AdminController(mock.Object);
@@ -122,20 +122,20 @@ namespace SportsStore.Tests
         public void Can_Delete_Valid_Products()
         {
             //Arrange
-            var product = new ProductDto() {ProductId = 2, Name = "Test"};
+            var product = new ProductDto() {Id = 2, Name = "Test"};
             var mock = new Mock<IProductService>();
             mock.Setup(service => service.GetById(It.IsAny<int>())).Returns(product);
-            
+
             var httpContext = new DefaultHttpContext();
             var tempData = new TempDataDictionary(httpContext, Mock.Of<ITempDataProvider>());
-            
+
             var target = new AdminController(mock.Object)
             {
                 TempData = tempData
             };
 
             //Act
-            target.Delete(product.ProductId);
+            target.Delete(product.Id);
 
             //Assert
             mock.Verify(service => service.Remove(product));

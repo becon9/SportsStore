@@ -5,7 +5,7 @@ namespace SportsStore.BLL.DTO
 {
     public class ProductDto
     {
-        public int ProductId { get; set; }
+        public int Id { get; set; }
 
         [Required(ErrorMessage = "Please enter a product name")]
         public string Name { get; set; }

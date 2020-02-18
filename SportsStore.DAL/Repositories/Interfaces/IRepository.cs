@@ -11,7 +11,7 @@ namespace SportsStore.DAL.Repositories.Interfaces
         void Add(T entity);
         void Update(T entity);
         void Remove(T entity);
-        T GetById(int id);
+        T GetById(int id, bool disableTracking = true);
         IList<T> GetAll(Expression<Func<T, bool>> predicate = null,
             Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null, 
             bool disableTracking = true);

@@ -11,5 +11,7 @@ namespace SportsStore.Api.Models
         public string City { get; set; }
         public string Zip { get; set; }
         public ICollection<CartLineDto> CartLines { get; set; }
+        
+        public bool GiftWrap { get; set; }
     }
 }

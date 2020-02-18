@@ -34,13 +34,13 @@ namespace SportsStore.BLL.Services.Implementation
 
         public void Remove(ProductDto entity)
         {
-            Remove(entity.ProductId);
+            Remove(entity.Id);
         }
 
         public void Remove(int id)
         {
-            Product deleteProduct = _uow.Products.GetById(id);
-            _uow.Products.Remove(deleteProduct);
+            var product = new Product {Id = id};
+            _uow.Products.Remove(product);
         }
 
         public ProductDto GetById(int id)
