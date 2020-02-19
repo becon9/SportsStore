@@ -8,7 +8,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
 using SportsStore.DependencyResolver;
-using SportsStore.Infrastructure.Interfaces;
 using System.Globalization;
 //using FluentValidation.AspNetCore;
 
@@ -45,7 +44,7 @@ namespace SportsStore.Api
             //services.AddScoped<Cart>(sp => SessionCart.GetCart(sp));
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
-            services.RegisterDependencies(Configuration);
+            services.RegisterDependenciesApi(Configuration);
 
             //services.AddMemoryCache();
             //services.AddSession();
@@ -53,8 +52,8 @@ namespace SportsStore.Api
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env,
-            IIdentityInitializer identityInitializer)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+            //IIdentityInitializer identityInitializer)
         {
             if (env.IsDevelopment())
             {
@@ -68,15 +67,20 @@ namespace SportsStore.Api
                     SupportedUICultures = supportedCultures
                 });
                 
-                identityInitializer.SeedData().Wait();
+                //identityInitializer.SeedData().Wait();
             }
-            app.UseCors(builder => builder.AllowAnyOrigin());
+
+            app.UseCors(builder => builder
+                .AllowAnyOrigin()
+                .AllowAnyHeader()
+                .AllowAnyMethod()
+                .WithExposedHeaders("X-Total-Count"));
             //app.UseStatusCodePages();
             app.UseStaticFiles();
             app.UseHttpsRedirection();
             //app.UseSession();
             app.UseRouting();
-            app.UseAuthorization();
+            //app.UseAuthorization();
 
             app.UseEndpoints(endpoint => { endpoint.MapControllers(); });
         }

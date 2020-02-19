@@ -32,7 +32,7 @@ namespace SportsStore.WEB.Controllers
         public ViewResult Edit(int productId)
         {
             return View(_productService.GetAll()
-                .FirstOrDefault(p => p.ProductId == productId));
+                .FirstOrDefault(p => p.Id == productId));
         }
 
         [HttpPost]
@@ -40,7 +40,7 @@ namespace SportsStore.WEB.Controllers
         {
             if (!ModelState.IsValid) return View(product);
 
-            IFormFileCollection files = HttpContext.Request.Form.Files;
+            IFormFileCollection files = HttpContext?.Request?.Form?.Files;
 
             if (files != null && files.Count > 0)
             {
@@ -52,7 +52,7 @@ namespace SportsStore.WEB.Controllers
                 product.Image.Base64 = Convert.ToBase64String(fileBytes);
             }
 
-            if (product.ProductId == 0)
+            if (product.Id == 0)
             {
                 _productService.Add(product);
             }

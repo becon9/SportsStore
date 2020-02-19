@@ -7,6 +7,6 @@ namespace SportsStore.BLL.Services.Interfaces
     {
         void MarkShipped(int orderId);
         IEnumerable<OrderDto> GetNotShippedOrders();
-        void AddProductToLine(OrderDto order);
+        OrderDto AddProductToLine(OrderDto order);
     }
 }

@@ -5,8 +5,12 @@ namespace SportsStore.BLL.Services.Interfaces
 {
     public interface IProductService : IService<ProductDto>
     {
-        IEnumerable<ProductDto> GetProductsWithImages();
+        IList<ProductDto> GetProductsWithImages();
 
-        IEnumerable<string> GetCategories();
+        IList<string> GetCategories();
+
+        IList<ProductDto> GetPaged(int page, int limit, string category = null, string searchQuery = null);
+
+        IList<ProductDto> GetAll(string category);
     }
 }

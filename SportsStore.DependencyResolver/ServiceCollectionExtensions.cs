@@ -14,13 +14,13 @@ namespace SportsStore.DependencyResolver
 {
     public static class ServiceCollectionExtensions
     {
-        public static void RegisterDependencies(this IServiceCollection services, IConfiguration configuration)
+        public static void RegisterDependenciesWeb(this IServiceCollection services, IConfiguration configuration)
         {
             services
-                .AddSingleton<SportsStore.Infrastructure.Interfaces.IMapper,
-                    SportsService.Infrastructure.Core.AutoMapper>();
+                .AddSingleton<IMapper,
+                    Infrastructure.Core.AutoMapper>();
 
-            services.AddScoped(typeof(IRepository<>), typeof(EFRepository<>));
+            services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
 
             services.AddScoped<IOrderRepository, OrderRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
@@ -45,6 +45,39 @@ namespace SportsStore.DependencyResolver
                 .AddDefaultTokenProviders();
 
             services.AddScoped<IIdentityInitializer, IdentityInitializer>();
+        }
+        
+        public static void RegisterDependenciesApi(this IServiceCollection services, IConfiguration configuration)
+        {
+            services
+                .AddSingleton<IMapper,
+                    Infrastructure.Core.AutoMapper>();
+
+            services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
+
+            services.AddScoped<IOrderRepository, OrderRepository>();
+            services.AddScoped<IProductRepository, ProductRepository>();
+
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+            services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<IOrderService, OrderService>();
+
+            services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(
+                    configuration["Data:SportsStoreProducts:ConnectionString"],
+                    b => b.MigrationsAssembly("SportsStore.DAL")));
+
+            /*services.AddDbContext<AppIdentityDbContext>(options =>
+                options.UseSqlServer(
+                    configuration["Data:SportStoreIdentity:ConnectionString"],
+                    b => b.MigrationsAssembly("SportsStore.DAL")));*/
+
+            /*services.AddIdentity<IdentityUser, IdentityRole>()
+                .AddEntityFrameworkStores<AppIdentityDbContext>()
+                .AddDefaultTokenProviders();*/
+
+            //services.AddScoped<IIdentityInitializer, IdentityInitializer>();
         }
     }
 }

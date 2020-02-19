@@ -6,12 +6,29 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\SportsStore.BLL\SportsStore.BLL.csproj" />
     <ProjectReference Include="..\SportsStore.DependencyResolver\SportsStore.DependencyResolver.csproj" />
     <ProjectReference Include="..\SportsStore.Infrastructure.Interfaces\SportsStore.Infrastructure.Interfaces.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Properties\PublishProfiles\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Remove="Properties\PublishProfiles\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Properties\PublishProfiles\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Properties\PublishProfiles\**" />
   </ItemGroup>
 
 </Project>

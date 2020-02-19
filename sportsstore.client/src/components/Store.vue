@@ -3,6 +3,7 @@
         <div class="row">
             <div class="col bg-dark text-white">
                 <a class="navbar-brand">SPORTS STORE</a>
+                <cart-summary />
             </div>
         </div>
         <div class="row">
@@ -10,7 +11,8 @@
                 <CategoryControls />
             </div>
             <div class="col-9 p-2">
-                <product-list />
+                <Search />
+                <ProductList />
             </div>
         </div>
     </div>
@@ -20,8 +22,14 @@
 
 import ProductList from "./ProductList";
 import CategoryControls from "./CategoryControls";
+import CartSummary from "./CartSummary";
+import {mapMutations} from "vuex";
+import Search from "./Search";
 
 export default {
-    components: {ProductList, CategoryControls}
+    components: {ProductList, CategoryControls, CartSummary, Search},
+    methods: {
+        ...mapMutations(["setShowSearch"])
+    }
 }
 </script>

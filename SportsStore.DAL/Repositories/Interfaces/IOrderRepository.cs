@@ -4,6 +4,6 @@ namespace SportsStore.DAL.Repositories.Interfaces
 {
     public interface IOrderRepository : IRepository<Order>
     {
-        void AddProductToLine(Order order);
+        Order AddProductToLine(Order order);
     }
 }

@@ -1,11 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
 using SportsStore.WEB.Infrastructure;
 using SportsStore.WEB.Models.ViewModels;
 using Xunit;
@@ -52,8 +50,8 @@ namespace SportsStore.Tests
 
             //Assert
             Assert.Equal(@"<a href=""Test/Page1"">1</a>"
-                + @"<a href=""Test/Page2"">2</a>"
-                + @"<a href=""Test/Page3"">3</a>",
+                         + @"<a href=""Test/Page2"">2</a>"
+                         + @"<a href=""Test/Page3"">3</a>",
                 output.Content.GetContent());
         }
     }

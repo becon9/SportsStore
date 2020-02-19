@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using SportsStore.BLL.DTO;
 using SportsStore.BLL.Services.Interfaces;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace SportsStore.Api.Controllers
 {
@@ -20,22 +18,37 @@ namespace SportsStore.Api.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<ProductDto> GetAllProducts()
+        public ActionResult<IEnumerable<ProductDto>> GetAllProducts(
+            [FromQuery(Name = "_page")] int page, 
+            [FromQuery(Name = "_limit")] int limit,
+            [FromQuery] string category,
+            [FromQuery(Name = "q")] string searchQuery)
         {
-            return _productService.GetAll();
+            if (page == 0 || limit == 0)
+            {
+                return Ok(category == null ? _productService.GetAll() : _productService.GetAll(category));
+            }
+            
+            IList<ProductDto> productsPaged = _productService.GetPaged(page, limit, category, searchQuery);
+
+            Response.Headers.Add("X-Total-Count",
+                category != null || searchQuery != null 
+                    ? productsPaged.Count().ToString() : _productService.Count().ToString());
+
+            return Ok(productsPaged);
         }
 
         [HttpGet("{id}")]
-        public ProductDto GetById(int id)
+        public ActionResult<ProductDto> GetById(int id)
         {
             ProductDto product = _productService.GetById(id);
-            return product;
+            return Ok(product);
         }
 
         [HttpGet("categories")]
-        public IEnumerable<string> GetCategories()
+        public ActionResult<IEnumerable<string>> GetCategories()
         {
-            return _productService.GetCategories();
+            return Ok(_productService.GetCategories());
         }
     }
 }

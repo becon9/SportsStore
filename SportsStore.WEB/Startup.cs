@@ -28,9 +28,9 @@ namespace SportsStore.WEB
             
             services.AddControllersWithViews();
 
-            services.RegisterDependencies(Configuration);
+            services.RegisterDependenciesWeb(Configuration);
 
-            services.AddScoped<Cart>(sp => SessionCart.GetCart(sp));
+            services.AddScoped(SessionCart.GetCart);
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             services.AddMemoryCache();
