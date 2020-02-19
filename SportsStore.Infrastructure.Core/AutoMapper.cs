@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 
-namespace SportsService.Infrastructure.Core
+namespace SportsStore.Infrastructure.Core
 {
     public class AutoMapper : SportsStore.Infrastructure.Interfaces.IMapper
     {

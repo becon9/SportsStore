@@ -30,7 +30,7 @@ namespace SportsStore.WEB.Controllers
         public RedirectToActionResult AddToCart(int productId, string returnUrl)
         {
             ProductDto product = _productService.GetAll()
-                .FirstOrDefault(p => p.ProductId == productId);
+                .FirstOrDefault(p => p.Id == productId);
             if (product != null)
             {
                 _cart.AddItem(product, 1);
@@ -42,7 +42,7 @@ namespace SportsStore.WEB.Controllers
         public RedirectToActionResult RemoveFromCart(int productId, string returnUrl)
         {
             ProductDto product = _productService.GetAll()
-                .FirstOrDefault(p => p.ProductId == productId);
+                .FirstOrDefault(p => p.Id == productId);
 
             if (product != null)
             {

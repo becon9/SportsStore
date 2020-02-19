@@ -1,10 +1,13 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using Microsoft.EntityFrameworkCore;
 using SportsStore.BLL.DTO;
 using SportsStore.BLL.Services.Interfaces;
 using SportsStore.DAL;
 using SportsStore.DAL.Entities;
 using SportsStore.Infrastructure.Interfaces;
 using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 
 namespace SportsStore.BLL.Services.Implementation
 {
@@ -33,13 +36,13 @@ namespace SportsStore.BLL.Services.Implementation
 
         public void Remove(ProductDto entity)
         {
-            Remove(entity.ProductId);
+            Remove(entity.Id);
         }
 
         public void Remove(int id)
         {
-            Product deleteProduct = _uow.Products.GetById(id);
-            _uow.Products.Remove(deleteProduct);
+            var product = new Product {Id = id};
+            _uow.Products.Remove(product);
         }
 
         public ProductDto GetById(int id)
@@ -60,14 +63,43 @@ namespace SportsStore.BLL.Services.Implementation
             return productDtos;
         }
 
-        public IEnumerable<ProductDto> GetProductsWithImages()
+        public int Count()
+        {
+            return _uow.Products.Count();
+        }
+
+        public IList<ProductDto> GetProductsWithImages()
         {
             IList<Product> products = _uow.Products
                 .GetAll(include: queryable => queryable
                     .Include(p => p.Image));
 
-            IEnumerable<ProductDto> productDtos =
-                _mapper.Map<IEnumerable<Product>, IEnumerable<ProductDto>>(products);
+            IList<ProductDto> productDtos =
+                _mapper.Map<IList<Product>, IList<ProductDto>>(products);
+            return productDtos;
+        }
+
+        public IList<string> GetCategories()
+        {
+            return _uow.Products.GetCategories();
+        }
+
+        public IList<ProductDto> GetPaged(int page, int limit, string category = null, string searchQuery = null)
+        {
+            IList<Product> products = _uow.Products.GetPaged(page, limit, category, searchQuery);
+
+            IList<ProductDto> productDtos = _mapper.Map<IList<Product>, IList<ProductDto>>(products);
+
+            return productDtos;
+        }
+
+        public IList<ProductDto> GetAll(string category)
+        {
+            IList<Product> products = _uow.Products
+                .GetAll(product => category == null || product.Category == category);
+
+            IList<ProductDto> productDtos = _mapper.Map<IList<Product>, IList<ProductDto>>(products);
+
             return productDtos;
         }
     }

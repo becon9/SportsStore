@@ -4,7 +4,7 @@ namespace SportsStore.BLL.DTO
 {
     public class ImageDto
     {
-        public int ImageId { get; set; }
+        public int Id { get; set; }
 
         [Display(Name = "Image")]
         public string Name { get; set; }

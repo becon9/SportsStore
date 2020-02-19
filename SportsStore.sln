@@ -14,13 +14,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SportsStore.DAL", "SportsSt
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SportsStore.BLL", "SportsStore.BLL\SportsStore.BLL.csproj", "{7B9F308C-90D8-4008-B38F-FC2EB4518436}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SportsStore.WEB", "SportsStore.WEB\SportsStore.WEB.csproj", "{2FB0E19A-146C-4FB8-BDD5-41FB5891DC5E}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SportsService.Infrastructure.Core", "SportsService.Infrastructure.Core\SportsService.Infrastructure.Core.csproj", "{D38D183E-8EE5-4D98-BFC2-43FD7D9838C8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SportsStore.Infrastructure.Core", "SportsStore.Infrastructure.Core\SportsStore.Infrastructure.Core.csproj", "{D38D183E-8EE5-4D98-BFC2-43FD7D9838C8}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SportsStore.Infrastructure.Interfaces", "SportsStore.Infrastructure.Interfaces\SportsStore.Infrastructure.Interfaces.csproj", "{B77136D3-7F62-425C-8A06-2CB0DD8F7873}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SportsStore.DependencyResolver", "SportsStore.DependencyResolver\SportsStore.DependencyResolver.csproj", "{E07710E7-91F4-43F5-9E77-BDE29609FF33}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SportsStore.DependencyResolver", "SportsStore.DependencyResolver\SportsStore.DependencyResolver.csproj", "{E07710E7-91F4-43F5-9E77-BDE29609FF33}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SportsStore.Api", "SportsStore.Api\SportsStore.Api.csproj", "{D1D6B51C-F6F4-4DC3-98E5-86EDC9695CEA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SportsStore.WEB", "SportsStore.WEB\SportsStore.WEB.csproj", "{7976AB01-6DC0-4FEF-8BEA-94EFF4E426E0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -40,10 +42,6 @@ Global
 		{7B9F308C-90D8-4008-B38F-FC2EB4518436}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7B9F308C-90D8-4008-B38F-FC2EB4518436}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7B9F308C-90D8-4008-B38F-FC2EB4518436}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2FB0E19A-146C-4FB8-BDD5-41FB5891DC5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2FB0E19A-146C-4FB8-BDD5-41FB5891DC5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2FB0E19A-146C-4FB8-BDD5-41FB5891DC5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2FB0E19A-146C-4FB8-BDD5-41FB5891DC5E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D38D183E-8EE5-4D98-BFC2-43FD7D9838C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D38D183E-8EE5-4D98-BFC2-43FD7D9838C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D38D183E-8EE5-4D98-BFC2-43FD7D9838C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -56,6 +54,14 @@ Global
 		{E07710E7-91F4-43F5-9E77-BDE29609FF33}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E07710E7-91F4-43F5-9E77-BDE29609FF33}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E07710E7-91F4-43F5-9E77-BDE29609FF33}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D1D6B51C-F6F4-4DC3-98E5-86EDC9695CEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1D6B51C-F6F4-4DC3-98E5-86EDC9695CEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1D6B51C-F6F4-4DC3-98E5-86EDC9695CEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1D6B51C-F6F4-4DC3-98E5-86EDC9695CEA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7976AB01-6DC0-4FEF-8BEA-94EFF4E426E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7976AB01-6DC0-4FEF-8BEA-94EFF4E426E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7976AB01-6DC0-4FEF-8BEA-94EFF4E426E0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7976AB01-6DC0-4FEF-8BEA-94EFF4E426E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -2,7 +2,7 @@
 using Moq;
 using System;
 using SportsStore.BLL.DTO;
-using SportsStore.BLL.Interfaces;
+using SportsStore.BLL.Services.Interfaces;
 using SportsStore.WEB.Controllers;
 using SportsStore.WEB.Models;
 using Xunit;
@@ -24,7 +24,7 @@ namespace SportsStore.Tests
             var result = target.Checkout(order) as ViewResult;
 
             //Assert
-            mock.Verify(m => m.SaveOrder(It.IsAny<OrderDto>()), Times.Never);
+            mock.Verify(service => service.Add(It.IsAny<OrderDto>()), Times.Never);
             Assert.True(String.IsNullOrEmpty(result?.ViewName));
             Assert.False(result?.ViewData.ModelState.IsValid);
         }
@@ -43,7 +43,7 @@ namespace SportsStore.Tests
             var result = target.Checkout(new OrderDto()) as ViewResult;
 
             //Assert
-            mock.Verify(m => m.SaveOrder(It.IsAny<OrderDto>()), Times.Never);
+            mock.Verify(service => service.Add(It.IsAny<OrderDto>()), Times.Never);
             Assert.True(String.IsNullOrEmpty(result?.ViewName));
             Assert.False(result?.ViewData.ModelState.IsValid);
         }
@@ -61,7 +61,7 @@ namespace SportsStore.Tests
             var result = target.Checkout(new OrderDto()) as RedirectToActionResult;
 
             //Assert
-            mock.Verify(m => m.SaveOrder(It.IsAny<OrderDto>()), Times.Once);
+            mock.Verify(service => service.AddProductToLine(It.IsAny<OrderDto>()), Times.Once);
             Assert.Equal("Completed", result?.ActionName);
         }
     }

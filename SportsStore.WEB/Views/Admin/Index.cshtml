@@ -15,16 +15,16 @@
     @foreach (ProductDto item in Model)
     {
         <tr>
-            <td class="text-right">@item.ProductId</td>
+            <td class="text-right">@item.Id</td>
             <td>@item.Name</td>
             <td class="text-right">@item.Price.ToString("C")</td>
             <td class="text-center">
                 <form asp-action="Delete" method="post">
                     <a asp-action="Edit" class="btn btn-sm btn-warning"
-                       asp-route-productId="@item.ProductId">
+                       asp-route-productId="@item.Id">
                         Edit
                     </a>
-                    <input type="hidden" name="ProductId" value="@item.ProductId"/>
+                    <input type="hidden" name="ProductId" value="@item.Id"/>
                     <button type="submit" class="btn btn-danger btn-sm">
                         Delete
                     </button>

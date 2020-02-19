@@ -21,7 +21,7 @@ namespace SportsStore.DAL.Migrations
 
             modelBuilder.Entity("SportsStore.DAL.Entities.CartLine", b =>
                 {
-                    b.Property<int>("CartLineId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -35,7 +35,7 @@ namespace SportsStore.DAL.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.HasKey("CartLineId");
+                    b.HasKey("Id");
 
                     b.HasIndex("OrderId");
 
@@ -46,7 +46,7 @@ namespace SportsStore.DAL.Migrations
 
             modelBuilder.Entity("SportsStore.DAL.Entities.Image", b =>
                 {
-                    b.Property<int>("ImageId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -60,35 +60,26 @@ namespace SportsStore.DAL.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("ImageId");
+                    b.HasKey("Id");
 
                     b.ToTable("Image");
                 });
 
             modelBuilder.Entity("SportsStore.DAL.Entities.Order", b =>
                 {
-                    b.Property<int>("OrderId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("City")
+                    b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Country")
+                    b.Property<string>("City")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("GiftWrap")
                         .HasColumnType("bit");
-
-                    b.Property<string>("Line1")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Line2")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Line3")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -96,20 +87,17 @@ namespace SportsStore.DAL.Migrations
                     b.Property<bool>("Shipped")
                         .HasColumnType("bit");
 
-                    b.Property<string>("State")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Zip")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("OrderId");
+                    b.HasKey("Id");
 
                     b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("SportsStore.DAL.Entities.Product", b =>
                 {
-                    b.Property<int>("ProductId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -129,7 +117,7 @@ namespace SportsStore.DAL.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18, 2)");
 
-                    b.HasKey("ProductId");
+                    b.HasKey("Id");
 
                     b.HasIndex("ImageId");
 
@@ -138,7 +126,7 @@ namespace SportsStore.DAL.Migrations
                     b.HasData(
                         new
                         {
-                            ProductId = 1,
+                            Id = 1,
                             Category = "Watersports",
                             Description = "A boat for one person",
                             Name = "Kayak",
@@ -146,7 +134,7 @@ namespace SportsStore.DAL.Migrations
                         },
                         new
                         {
-                            ProductId = 2,
+                            Id = 2,
                             Category = "Watersports",
                             Description = "Protective and fashionable",
                             Name = "Lifejacket",
@@ -154,7 +142,7 @@ namespace SportsStore.DAL.Migrations
                         },
                         new
                         {
-                            ProductId = 3,
+                            Id = 3,
                             Category = "Soccer",
                             Description = "FIFA-approved size and weight",
                             Name = "Soccer Ball",
@@ -162,7 +150,7 @@ namespace SportsStore.DAL.Migrations
                         },
                         new
                         {
-                            ProductId = 4,
+                            Id = 4,
                             Category = "Soccer",
                             Description = "Give your playing field a professional touch",
                             Name = "Corner Flags",
@@ -170,7 +158,7 @@ namespace SportsStore.DAL.Migrations
                         },
                         new
                         {
-                            ProductId = 5,
+                            Id = 5,
                             Category = "Soccer",
                             Description = "Flat-packed 35,000-seat stadium",
                             Name = "Stadium",
@@ -178,7 +166,7 @@ namespace SportsStore.DAL.Migrations
                         },
                         new
                         {
-                            ProductId = 6,
+                            Id = 6,
                             Category = "Chess",
                             Description = "Improve brain efficiency by 75%",
                             Name = "Thinking Cap",
@@ -186,7 +174,7 @@ namespace SportsStore.DAL.Migrations
                         },
                         new
                         {
-                            ProductId = 7,
+                            Id = 7,
                             Category = "Chess",
                             Description = "Secretly give your opponent a disadvantage",
                             Name = "Unsteady Chair",
@@ -194,7 +182,7 @@ namespace SportsStore.DAL.Migrations
                         },
                         new
                         {
-                            ProductId = 8,
+                            Id = 8,
                             Category = "Chess",
                             Description = "A fun game for family",
                             Name = "Human Chess Board",
@@ -202,7 +190,7 @@ namespace SportsStore.DAL.Migrations
                         },
                         new
                         {
-                            ProductId = 9,
+                            Id = 9,
                             Category = "Chess",
                             Description = "Gold-plated, diamong-studded King",
                             Name = "Bling-Bling King",

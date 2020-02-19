@@ -11,7 +11,7 @@ namespace SportsStore.WEB.Models
         public virtual void AddItem(ProductDto product, int quantity)
         {
             CartLineDto line = _lineCollection
-                .Find(p => p.Product.ProductId == product.ProductId);
+                .Find(p => p.Product.Id == product.Id);
             if (line == null)
             {
                 _lineCollection.Add(new CartLineDto
@@ -27,7 +27,7 @@ namespace SportsStore.WEB.Models
         }
 
         public virtual void RemoveLine(ProductDto product) =>
-            _lineCollection.RemoveAll(l => l.Product.ProductId == product.ProductId);
+            _lineCollection.RemoveAll(l => l.Product.Id == product.Id);
 
         public virtual decimal ComputeTotalValue() =>
             _lineCollection.Sum(e => e.Product.Price * e.Quantity);

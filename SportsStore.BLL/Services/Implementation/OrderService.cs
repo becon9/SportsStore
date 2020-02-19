@@ -38,10 +38,12 @@ namespace SportsStore.BLL.Services.Implementation
             return orderDtos;
         }
 
-        public void AddProductToLine(OrderDto orderDto)
+        public OrderDto AddProductToLine(OrderDto orderDto)
         {
             Order order = _mapper.Map<OrderDto, Order>(orderDto);
-            _uow.Orders.AddProductToLine(order);
+            order = _uow.Orders.AddProductToLine(order);
+            orderDto = _mapper.Map<Order, OrderDto>(order);
+            return orderDto;
         }
 
         public void Add(OrderDto entity)
@@ -58,12 +60,12 @@ namespace SportsStore.BLL.Services.Implementation
 
         public void Remove(OrderDto entity)
         {
-            Remove(entity.OrderId);
+            Remove(entity.Id);
         }
 
         public void Remove(int id)
         {
-            Order order = _uow.Orders.GetById(id);
+            var order = new Order {Id = id};
             _uow.Orders.Remove(order);
         }
 
@@ -83,6 +85,11 @@ namespace SportsStore.BLL.Services.Implementation
             IEnumerable<OrderDto> ordersDto = _mapper.Map<IEnumerable<Order>, IEnumerable<OrderDto>>(orders);
 
             return ordersDto;
+        }
+
+        public int Count()
+        {
+            return _uow.Orders.Count();
         }
     }
 }

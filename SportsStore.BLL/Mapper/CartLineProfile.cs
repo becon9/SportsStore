@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using SportsService.Infrastructure.Core;
+﻿using SportsStore.Infrastructure.Core;
 using SportsStore.BLL.DTO;
 using SportsStore.DAL.Entities;
 

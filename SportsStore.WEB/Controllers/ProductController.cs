@@ -21,7 +21,7 @@ namespace SportsStore.WEB.Controllers
         {
             List<ProductDto> result = _productService.GetProductsWithImages()
                 .Where(p => category == null || p.Category == category)
-                .OrderBy(p => p.ProductId)
+                .OrderBy(p => p.Id)
                 .Skip((productPage - 1) * PageSize)
                 .Take(PageSize)
                 .ToList();
