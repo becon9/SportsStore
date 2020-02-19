@@ -15,6 +15,7 @@ namespace SportsStore.DAL.Repositories.Interfaces
         IList<T> GetAll(Expression<Func<T, bool>> predicate = null,
             Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null, 
             bool disableTracking = true);
-        
+
+        int Count();
     }
 }

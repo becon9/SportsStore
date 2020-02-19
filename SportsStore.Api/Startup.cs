@@ -73,7 +73,8 @@ namespace SportsStore.Api
             app.UseCors(builder => builder
                 .AllowAnyOrigin()
                 .AllowAnyHeader()
-                .AllowAnyMethod());
+                .AllowAnyMethod()
+                .WithExposedHeaders("X-Total-Count"));
             //app.UseStatusCodePages();
             app.UseStaticFiles();
             app.UseHttpsRedirection();

@@ -9,7 +9,7 @@ export default {
     },
     mutations: {
         addProduct(state, product) {
-            let line = state.lines.find(line => line.product.productId === product.productId);
+            let line = state.lines.find(line => line.product.id === product.id);
             if (line != null) {
                 line.quantity++;
             } else {

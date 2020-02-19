@@ -2,6 +2,7 @@
 using SportsStore.BLL.DTO;
 using SportsStore.BLL.Services.Interfaces;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SportsStore.Api.Controllers
 {
@@ -17,9 +18,22 @@ namespace SportsStore.Api.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<ProductDto>> GetAllProducts()
+        public ActionResult<IEnumerable<ProductDto>> GetAllProducts(
+            [FromQuery(Name = "_page")] int page, 
+            [FromQuery(Name = "_limit")] int limit,
+            [FromQuery] string category = null)
         {
-            return Ok(_productService.GetAll());
+            if (page == 0 || limit == 0)
+            {
+                return Ok(category == null ? _productService.GetAll() : _productService.GetAll(category));
+            }
+            
+            IList<ProductDto> productsPaged = _productService.GetPaged(page, limit, category);
+
+            Response.Headers.Add("X-Total-Count",
+                category != null ? productsPaged.Count().ToString() : _productService.Count().ToString());
+
+            return Ok(productsPaged);
         }
 
         [HttpGet("{id}")]
@@ -33,14 +47,6 @@ namespace SportsStore.Api.Controllers
         public ActionResult<IEnumerable<string>> GetCategories()
         {
             return Ok(_productService.GetCategories());
-        }
-
-        [HttpGet]
-        public ActionResult GetPage([FromQuery(Name = "_page")] int page, [FromQuery(Name = "_limit")] int limit,
-            [FromQuery] string category)
-        {
-            
-            return Ok();
         }
     }
 }

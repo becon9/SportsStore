@@ -20,17 +20,17 @@ namespace SportsStore.DAL.Repositories.Implementation
             _dbSet = context.Set<T>();
         }
 
-        public T GetById(int id, bool disableTracking = true)
+        public virtual T GetById(int id, bool disableTracking = true)
         {
             IQueryable<T> query = _dbSet;
             if (disableTracking)
             {
-                query.AsNoTracking();
+                query = query.AsNoTracking();
             }
             return query.FirstOrDefault(entity => entity.Id == id);
         }
 
-        public IList<T> GetAll(Expression<Func<T, bool>> predicate = null,
+        public virtual IList<T> GetAll(Expression<Func<T, bool>> predicate = null,
             Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null, 
             bool disableTracking = true)
         {
@@ -38,7 +38,7 @@ namespace SportsStore.DAL.Repositories.Implementation
 
             if (disableTracking)
             {
-                query.AsNoTracking();
+                query = query.AsNoTracking();
             }
 
             if (include != null)
@@ -54,17 +54,22 @@ namespace SportsStore.DAL.Repositories.Implementation
             return query.ToList();
         }
 
-        public void Add(T item)
+        public int Count()
+        {
+            return _context.Set<T>().AsNoTracking().Count();
+        }
+
+        public virtual void Add(T item)
         {
             _context.Set<T>().Add(item);
             _context.SaveChanges();
         }
-        public void Update(T item)
+        public virtual void Update(T item)
         {
-            _context.Entry(item).State = EntityState.Modified;
+            _context.Set<T>().Update(item);
             _context.SaveChanges();
         }
-        public void Remove(T item)
+        public virtual void Remove(T item)
         {
             _context.Set<T>().Attach(item);
             _context.Set<T>().Remove(item);

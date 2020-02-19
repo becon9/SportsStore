@@ -10,5 +10,6 @@ namespace SportsStore.BLL.Services.Interfaces
         void Remove(int id);
         T GetById(int id);
         IEnumerable<T> GetAll();
+        int Count();
     }
 }

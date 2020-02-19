@@ -86,5 +86,10 @@ namespace SportsStore.BLL.Services.Implementation
 
             return ordersDto;
         }
+
+        public int Count()
+        {
+            return _uow.Orders.Count();
+        }
     }
 }
