@@ -21,17 +21,19 @@ namespace SportsStore.Api.Controllers
         public ActionResult<IEnumerable<ProductDto>> GetAllProducts(
             [FromQuery(Name = "_page")] int page, 
             [FromQuery(Name = "_limit")] int limit,
-            [FromQuery] string category = null)
+            [FromQuery] string category,
+            [FromQuery(Name = "q")] string searchQuery)
         {
             if (page == 0 || limit == 0)
             {
                 return Ok(category == null ? _productService.GetAll() : _productService.GetAll(category));
             }
             
-            IList<ProductDto> productsPaged = _productService.GetPaged(page, limit, category);
+            IList<ProductDto> productsPaged = _productService.GetPaged(page, limit, category, searchQuery);
 
             Response.Headers.Add("X-Total-Count",
-                category != null ? productsPaged.Count().ToString() : _productService.Count().ToString());
+                category != null || searchQuery != null 
+                    ? productsPaged.Count().ToString() : _productService.Count().ToString());
 
             return Ok(productsPaged);
         }

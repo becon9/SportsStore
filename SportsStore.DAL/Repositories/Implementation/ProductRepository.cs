@@ -17,10 +17,12 @@ namespace SportsStore.DAL.Repositories.Implementation
             _context = context;
         }
 
-        public IList<Product> GetPaged(int page, int limit, string category = null)
+        public IList<Product> GetPaged(int page, int limit, string category = null, string searchQuery = null)
         {
             IQueryable<Product> query = _context.Products;
-            query = query.Where(p => category == null || p.Category == category)
+            query = query
+                .Where(product => (category == null || product.Category == category)
+                    && (searchQuery == null || product.Name.StartsWith(searchQuery)))
                 .Skip((page - 1) * limit)
                 .Take(limit);
 

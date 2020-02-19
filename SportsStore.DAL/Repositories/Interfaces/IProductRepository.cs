@@ -5,7 +5,7 @@ namespace SportsStore.DAL.Repositories.Interfaces
 {
     public interface IProductRepository : IRepository<Product>
     {
-        IList<Product> GetPaged(int page, int limit, string category = null);
+        IList<Product> GetPaged(int page, int limit, string category = null, string searchQuery = null);
         IList<string> GetCategories();
     }
 }

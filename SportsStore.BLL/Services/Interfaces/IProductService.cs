@@ -9,7 +9,7 @@ namespace SportsStore.BLL.Services.Interfaces
 
         IList<string> GetCategories();
 
-        IList<ProductDto> GetPaged(int page, int limit, string category = null);
+        IList<ProductDto> GetPaged(int page, int limit, string category = null, string searchQuery = null);
 
         IList<ProductDto> GetAll(string category);
     }
