@@ -28,11 +28,17 @@ namespace SportsStore.DAL.Repositories.Implementation
             {
                 query = query.AsNoTracking();
             }
+
             query = query
-                .Where(product => (category == null || product.Category == category)
-                    && (searchQuery == null || product.Name.StartsWith(searchQuery)))
-                .Skip((page - 1) * limit)
-                .Take(limit);
+                .Where(product => 
+                    (category == null || product.Category == category)
+                    && (searchQuery == null || product.Name.Contains(searchQuery)));
+            if (page > 0 && limit > 0)
+            {
+                query = query
+                    .Skip((page - 1) * limit)
+                    .Take(limit);
+            }
             if (include != null)
             {
                 query = include(query);

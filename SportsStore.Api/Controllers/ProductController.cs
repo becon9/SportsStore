@@ -24,10 +24,10 @@ namespace SportsStore.Api.Controllers
             [FromQuery] string category,
             [FromQuery(Name = "q")] string searchQuery)
         {
-            if (page == 0 || limit == 0)
+            /*if (page == 0 || limit == 0)
             {
                 return Ok(category == null ? _productService.GetAll() : _productService.GetAll(category));
-            }
+            }*/
             
             IList<ProductDto> productsPaged = _productService.GetPaged(page, limit, category, searchQuery);
 
