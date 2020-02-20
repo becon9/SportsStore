@@ -9,6 +9,7 @@ using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
 using SportsStore.DependencyResolver;
 using System.Globalization;
+
 //using FluentValidation.AspNetCore;
 
 namespace SportsStore.Api
@@ -39,7 +40,7 @@ namespace SportsStore.Api
                     //opt => opt.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly())
                 ;
 
-            
+            services.AddSwaggerDocument();
 
             //services.AddScoped<Cart>(sp => SessionCart.GetCart(sp));
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
@@ -69,6 +70,9 @@ namespace SportsStore.Api
                 
                 //identityInitializer.SeedData().Wait();
             }
+
+            app.UseOpenApi();
+            app.UseSwaggerUi3();
 
             app.UseCors(builder => builder
                 .AllowAnyOrigin()

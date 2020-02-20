@@ -52,10 +52,8 @@ namespace SportsStore.WEB.Controllers
                 _orderService.AddProductToLine(order);
                 return RedirectToAction(nameof(Completed));
             }
-            else
-            {
-                return View(order);
-            }
+
+            return View(order);
         }
 
         public ViewResult Completed()

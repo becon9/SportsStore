@@ -23,6 +23,7 @@ namespace SportsStore.BLL.DTO
 
         [Required(ErrorMessage = "Please enter a city name")]
         public string City { get; set; }
+        [Required(ErrorMessage = "Please enter a zip")]
         public string Zip { get; set; }
         public bool GiftWrap { get; set; }
     }

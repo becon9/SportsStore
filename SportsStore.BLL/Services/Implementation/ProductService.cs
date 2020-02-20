@@ -86,7 +86,8 @@ namespace SportsStore.BLL.Services.Implementation
 
         public IList<ProductDto> GetPaged(int page, int limit, string category = null, string searchQuery = null)
         {
-            IList<Product> products = _uow.Products.GetPaged(page, limit, category, searchQuery);
+            IList<Product> products = _uow.Products.GetPaged(page, limit, category, searchQuery,
+                query => query.Include(product => product.Image));
 
             IList<ProductDto> productDtos = _mapper.Map<IList<Product>, IList<ProductDto>>(products);
 

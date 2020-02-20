@@ -27,10 +27,9 @@ namespace SportsStore.WEB.Controllers
             });
         }
 
-        public RedirectToActionResult AddToCart(int productId, string returnUrl)
+        public RedirectToActionResult AddToCart([FromForm(Name = "Id")] int productId, string returnUrl)
         {
-            ProductDto product = _productService.GetAll()
-                .FirstOrDefault(p => p.Id == productId);
+            ProductDto product = _productService.GetById(productId);
             if (product != null)
             {
                 _cart.AddItem(product, 1);
@@ -39,10 +38,9 @@ namespace SportsStore.WEB.Controllers
             return RedirectToAction("Index", new { returnUrl });
         }
 
-        public RedirectToActionResult RemoveFromCart(int productId, string returnUrl)
+        public RedirectToActionResult RemoveFromCart([FromForm(Name = "Id")] int productId, string returnUrl)
         {
-            ProductDto product = _productService.GetAll()
-                .FirstOrDefault(p => p.Id == productId);
+            ProductDto product = _productService.GetById(productId);
 
             if (product != null)
             {
