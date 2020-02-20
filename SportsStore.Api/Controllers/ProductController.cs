@@ -42,6 +42,12 @@ namespace SportsStore.Api.Controllers
         public ActionResult<ProductDto> GetById(int id)
         {
             ProductDto product = _productService.GetById(id);
+            
+            if (product == null)
+            {
+                return NotFound();
+            }
+            
             return Ok(product);
         }
 

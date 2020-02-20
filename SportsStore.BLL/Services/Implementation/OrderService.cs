@@ -31,7 +31,9 @@ namespace SportsStore.BLL.Services.Implementation
 
         public IEnumerable<OrderDto> GetNotShippedOrders()
         {
-            IEnumerable<Order> orders = _uow.Orders.GetAll(predicate: order => !order.Shipped);
+            IEnumerable<Order> orders = _uow.Orders.GetAll(order => !order.Shipped, query => 
+                query.Include(order => order.Lines)
+                    .ThenInclude(line => line.Product));
 
             IEnumerable<OrderDto> orderDtos = _mapper.Map<IEnumerable<Order>, IEnumerable<OrderDto>>(orders);
 

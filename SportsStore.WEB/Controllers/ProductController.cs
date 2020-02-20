@@ -19,12 +19,7 @@ namespace SportsStore.WEB.Controllers
 
         public ViewResult List(string category, int productPage = 1)
         {
-            List<ProductDto> result = _productService.GetProductsWithImages()
-                .Where(p => category == null || p.Category == category)
-                .OrderBy(p => p.Id)
-                .Skip((productPage - 1) * PageSize)
-                .Take(PageSize)
-                .ToList();
+            IList<ProductDto> result = _productService.GetPaged(productPage, PageSize, category);
             return View(new ProductsListViewModel
             {
                 Products = result,
